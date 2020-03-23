@@ -20,8 +20,8 @@ for x in range(map_x):
 
 device = ws2812(width=map_x, height=map_y, mapping=BTF_MATRIX)
 
-for y in range(device.height):
-    for x in range(device.width):
+for x in range(device.width):
+    for y in range(device.height):
         with canvas(device) as draw:
-            draw.point((x, y), fill="green")
-        time.sleep(0.05)
+            draw.point((x, y), fill="blue")
+        time.sleep(0.005)
