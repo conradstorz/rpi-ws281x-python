@@ -54,3 +54,4 @@ scan_horizontal()
 
 scan_vertical()
 
+device.cleanup()
