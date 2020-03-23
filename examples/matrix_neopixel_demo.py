@@ -24,4 +24,4 @@ for x in range(device.width):
     for y in range(device.height):
         with canvas(device) as draw:
             draw.point((x, y), fill="blue")
-        time.sleep(0.005)
+        time.sleep(0.05)
