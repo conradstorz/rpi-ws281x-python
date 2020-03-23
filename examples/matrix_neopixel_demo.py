@@ -3,7 +3,7 @@ import time
 from luma.led_matrix.device import ws2812, UNICORN_HAT
 from luma.core.render import canvas
 
-device = ws2812(width=32, height=8, mapping=UNICORN_HAT)
+device = ws2812(width=8, height=32, mapping=UNICORN_HAT)
 
 for y in range(device.height):
     for x in range(device.width):
