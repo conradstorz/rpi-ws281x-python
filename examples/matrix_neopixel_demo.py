@@ -20,7 +20,7 @@ for x in range(map_x):
 
 device = ws2812(width=map_y, height=map_x, mapping=BTF_MATRIX)
 
-def scan_verticle():
+def scan_vertical():
     for y in range(device.height):
         for x in range(device.width):
             with canvas(device) as draw:
@@ -33,4 +33,24 @@ def scan_verticle():
                 draw.point((x, y), fill="red")                                
             time.sleep(0.0005)
 
-scan_verticle()
+
+def scan_horizontal():
+    for x in range(device.width):
+        for y in range(device.height):
+            with canvas(device) as draw:
+                draw.point((x, y), fill="blue")
+            time.sleep(0.0005)                
+            with canvas(device) as draw:                
+                draw.point((x, y), fill="green")
+            time.sleep(0.0005)
+            with canvas(device) as draw:                
+                draw.point((x, y), fill="red")                                
+            time.sleep(0.0005)
+
+
+
+scan_horizontal()
+
+
+scan_vertical()
+
