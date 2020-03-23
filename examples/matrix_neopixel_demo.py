@@ -25,7 +25,9 @@ def scan_verticle():
         for x in range(device.width):
             with canvas(device) as draw:
                 draw.point((x, y), fill="blue")
+            with canvas(device) as draw:                
                 draw.point((x, y), fill="green")
+            with canvas(device) as draw:                
                 draw.point((x, y), fill="red")                                
             time.sleep(0.05)
 
