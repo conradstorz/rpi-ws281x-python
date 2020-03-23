@@ -18,7 +18,7 @@ for x in range(map_x):
         BTF_MATRIX.append(y)
 
 
-device = ws2812(width=map_x, height=map_y, mapping=BTF_MATRIX)
+device = ws2812(width=map_y, height=map_x, mapping=BTF_MATRIX)
 
 def scan_verticle():
     for y in range(device.height):
