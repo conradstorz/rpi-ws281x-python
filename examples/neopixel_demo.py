@@ -26,6 +26,8 @@ for x in range(map_x):
     for y in ylist:
         BTF_MATRIX.append(y)
 
+print(BTF_MATRIX)
+
 ALT_BTF = []
 map_x = 32
 map_y = 8
@@ -34,8 +36,9 @@ for x in range(map_x):
     if x%2 == 1: # invert list to account for serpentine layout
         ylist.reverse()
     for y in ylist:
-        BTF_MATRIX.append(y)
+        ALT_BTF.append(y)
 
+print(ALT_BTF)
 
 # create matrix device
 device = neopixel(width=32, height=8, mapping=ALT_BTF, rotate=0)
