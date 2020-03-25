@@ -234,7 +234,9 @@ def main():
 
     print('scan lines')
     ylist = list(range(device.height))
+    print(ylist)
     for x in range(device.width): #repeat scan for multiple equal to width
+        print(x)
         if x%2 == 0: ylist.reverse()
         for y in ylist: #scan the line through the list
             with canvas(device) as draw:
