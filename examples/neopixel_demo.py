@@ -244,7 +244,7 @@ def main():
 
     with canvas(device) as draw:
         #rectangle(draw, device.bounding_box, outline="white", fill="black")
-        text(draw, (3, 3), "Hello world", fill="white", font=TINY_FONT)
+        text(draw, (0, -1), "Hello world", fill="white", font=TINY_FONT)
 
     time.sleep(2)
 
