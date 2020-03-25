@@ -243,8 +243,8 @@ def main():
     time.sleep(1)
 
     with canvas(device) as draw:
-        draw.rectangle(device.bounding_box, outline="white", fill="black")
-        draw.text((3, 3), "Hello world", fill="white", font=TINY_FONT)
+        rectangle(draw, device.bounding_box, outline="white", fill="black")
+        text(draw, (3, 3), "Hello world", fill="white", font=TINY_FONT)
 
     time.sleep(2)
 
