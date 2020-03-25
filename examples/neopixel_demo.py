@@ -224,9 +224,9 @@ def main():
     for x in range(device.height):
         with canvas(device) as draw:
             draw.line((x, 0, x, device.height), fill="red")
-            sleep(0.1)
+            time.sleep(0.1)
 
-    sleep(2)
+    time.sleep(2)
 
     print('Vary intensity from 0 - 255')
     for _ in range(5):
