@@ -44,7 +44,7 @@ for x in range(map_x):
 print(ALT_BTF)
 
 # create matrix device
-device = neopixel(width=ysize, height=xsize, mapping=ALT_BTF, rotate=0)
+device = neopixel(width=ysize, height=xsize, mapping=ALT_BTF, rotate=1)
 
 
 # twisty swirly goodness
