@@ -191,6 +191,7 @@ def gfx(device):
 
         effect = effects.pop()
         effects.insert(0, effect)
+    return True
 
 
 def main():
@@ -218,6 +219,14 @@ def main():
         draw.line((7, 0, 7, device.height), fill="white")
 
     time.sleep(4)
+
+    print('scan lines')
+    for x in range(device.height):
+        with canvas(device) as draw:
+            draw.line((x, 0, x, device.height), fill="red")
+            sleep(0.1)
+
+    sleep(2)
 
     print('Vary intensity from 0 - 255')
     for _ in range(5):
