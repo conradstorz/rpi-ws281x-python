@@ -242,6 +242,12 @@ def main():
 
     time.sleep(1)
 
+    with canvas(device) as draw:
+        draw.rectangle(device.bounding_box, outline="white", fill="black")
+        draw.text((3, 3), "Hello world", fill="white", font=TINY_FONT)
+
+    time.sleep(2)
+
     print('Draw lines in the rainbow')
     with canvas(device) as draw:
         draw.line((0, 0, 0, device.height), fill="red")
@@ -295,13 +301,7 @@ def main():
 
     time.sleep(2)
 
-    with canvas(device) as draw:
-        draw.rectangle(device.bounding_box, outline="white", fill="black")
-        draw.text((3, 3), "Hello world", fill="white")
 
-    time.sleep(2)
-
-    
     print('Set contrast to: 0x80')
     device.contrast(0x80)
     time.sleep(1)
