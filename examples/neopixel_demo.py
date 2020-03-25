@@ -47,18 +47,25 @@ print(ALT_BTF)
 
 
 ALT2_BTF = []
-map_x = xsize
-map_y = ysize
-ylist = list(range(int(map_y/2)))
-for y in ylist:
-    xlist = list(range(y*(map_x*2),y*(map_x*2)+map_x*2))
-    for x in xlist:
-        ALT2_BTF.append(x)
+tmp_BTF = []
+map_x = 32
+map_y = 8
+xlist = list(range(map_x))
+for x in xlist:
+    ylist = list(range(x*map_y,x*map_y+map_y))
+    if x%2 == 1: # invert list to account for serpentine layout
+        ylist.reverse()
+    tmp_BTF.append(ylist)
+
+
+for y in range(map_y):
+    for l in tmp_BTF:
+        ALT2_BTF.append(l[y])
 
 print(ALT2_BTF)
 
 # create matrix device
-device = neopixel(width=xsize, height=ysize, mapping=ALT_BTF, rotate=0)
+device = neopixel(width=xsize, height=ysize, mapping=ALT2_BTF, rotate=0)
 
 
 # twisty swirly goodness
