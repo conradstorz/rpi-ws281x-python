@@ -215,7 +215,7 @@ def main():
     device.contrast(0x80)
     time.sleep(1)
 
-    Print('Start "gfx" routine')
+    print('Start "gfx" routine')
     gfx(device)
     return True
 
