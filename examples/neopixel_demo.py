@@ -49,9 +49,9 @@ print(ALT_BTF)
 ALT2_BTF = []
 map_x = xsize
 map_y = ysize
-ylist = list(range(map_y))
+ylist = list(range(map_y/2))
 for y in ylist:
-    xlist = list(range(y*map_x,y*map_x+map_x))
+    xlist = list(range(y*(map_x*2),y*(map_x*2)+map_x*2))
     for x in xlist:
         ALT2_BTF.append(x)
 
