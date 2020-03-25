@@ -220,13 +220,6 @@ def main():
 
     time.sleep(4)
 
-    print('scan lines')
-    for x in range(device.height):
-        with canvas(device) as draw:
-            draw.line((x, 0, x, device.height), fill="red")
-            time.sleep(0.1)
-
-    time.sleep(2)
 
     print('Vary intensity from 0 - 255')
     for _ in range(5):
@@ -237,6 +230,18 @@ def main():
     print('Set contrast to: 0x80')
     device.contrast(0x80)
     time.sleep(1)
+
+
+    print('scan lines')
+    ylist = list(range(device.height))
+    for x in range(device.width): #repeat scan for multiple equal to width
+        if x%2 == 0: ylist.reverse()
+        for y in ylist: #scan the line through the list
+            with canvas(device) as draw:
+                draw.line((y, 0, y, device.height), fill="red")
+                time.sleep(0.1)
+
+    time.sleep(2)
 
     print('Start "gfx" routine')
     gfx(device)
