@@ -15,10 +15,13 @@ from luma.core.render import canvas
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, TINY_FONT
 
+xsize = 32
+ysize = 8
+
 # Create layout of BTF style NeoPixel matrix
 BTF_MATRIX = []
-map_x = 32
-map_y = 8
+map_x = xsize
+map_y = ysize
 for x in range(map_x):
     ylist = list(range(x*map_y,x*map_y+map_y))
     if x%2 == 0: # invert list to account for serpentine layout
@@ -29,8 +32,8 @@ for x in range(map_x):
 print(BTF_MATRIX)
 
 ALT_BTF = []
-map_x = 32
-map_y = 8
+map_x = xsize
+map_y = ysize
 for x in range(map_x):
     ylist = list(range(x*map_y,x*map_y+map_y))
     if x%2 == 1: # invert list to account for serpentine layout
@@ -41,7 +44,7 @@ for x in range(map_x):
 print(ALT_BTF)
 
 # create matrix device
-device = neopixel(width=32, height=8, mapping=ALT_BTF, rotate=0)
+device = neopixel(width=ysize, height=xsize, mapping=ALT_BTF, rotate=0)
 
 
 # twisty swirly goodness
