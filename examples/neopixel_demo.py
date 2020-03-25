@@ -295,8 +295,19 @@ def main():
 
     time.sleep(2)
 
+    with canvas(device) as draw:
+        draw.rectangle(device.bounding_box, outline="white", fill="black")
+        draw.text((3, 3), "Hello world", fill="white")
+
+    time.sleep(2)
+
+    
+    print('Set contrast to: 0x80')
+    device.contrast(0x80)
+    time.sleep(1)
+
     print('Start "gfx" routine')
-    gfx(device)
+    #gfx(device)
     return True
 
 
