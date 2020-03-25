@@ -181,15 +181,18 @@ def gfx(device):
 
 def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
+    print(msg)
     show_message(device, msg, y_offset=-1, fill="green", font=proportional(TINY_FONT))
     time.sleep(1)
 
+    print('Draw text "A" and "T"')
     with canvas(device) as draw:
         text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
     time.sleep(1)
 
+    print('Draw lines in the rainbow')
     with canvas(device) as draw:
         draw.line((0, 0, 0, device.height), fill="red")
         draw.line((1, 0, 1, device.height), fill="orange")
@@ -202,15 +205,19 @@ def main():
 
     time.sleep(4)
 
+    print('Vary intensity from 0 - 255')
     for _ in range(5):
         for intensity in range(16):
             device.contrast(intensity * 16)
             time.sleep(0.1)
 
+    print('Set contrast to: 0x80')
     device.contrast(0x80)
     time.sleep(1)
 
+    Print('Start "gfx" routine')
     gfx(device)
+    return True
 
 
 if __name__ == "__main__":
