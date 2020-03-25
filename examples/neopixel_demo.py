@@ -30,7 +30,7 @@ for x in range(map_x):
 
 
 # create matrix device
-device = neopixel(width=32, height=8, mapping=BTF_MATRIX, rotate=0)
+device = neopixel(width=32, height=8, mapping=BTF_MATRIX, rotate=1)
 
 
 # twisty swirly goodness
