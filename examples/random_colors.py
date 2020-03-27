@@ -40,59 +40,57 @@ def Set_Random_Pixels(senseObj, x=index, y=index, pace=0.01, rounds=99):
     # TODO range check x,y, rounds and pace
     # TODO type check senseObj
 
-    def UseSenseHat(senseObj, x, y, pace, rounds):
-        field = [int(rounds) for i in range(len(x) * len(y))]
-        while sum(field) > -(rounds*100): # extend run time 
-            color = choice(COLOR_KEYS)
-            pixel_x = choice(x)
-            pixel_y = choice(y)
-            iters = field[pixel_x * 8 + pixel_y]
-            field[pixel_x * 8 + pixel_y] = iters - 1
-            senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
-            delay = (sum(field) / rounds) / (100 / pace)
-            if delay > 0:
-                sleep(delay)
-            else:
-                sleep(.0001)
-        return color
-
-    def UseGPIO(x, y, pace, rounds):
-        field = [int(rounds) for i in range(len(x) * len(y))]
-        while sum(field) > -(rounds*100): # extend run time 
-            color = choice(COLOR_KEYS)
-            pixel_x = choice(x)
-            pixel_y = choice(y)
-            iters = field[pixel_x * 8 + pixel_y]
-            field[pixel_x * 8 + pixel_y] = iters - 1
-            #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
-            delay = (sum(field) / rounds) / (100 / pace)
-            if delay > 0:
-                sleep(delay)
-            else:
-                sleep(.0001)
-        return color
-
-    def UseLumaLEDMatrix(device, x, y, pace, rounds):
-        field = [int(rounds) for i in range(len(x) * len(y))]
-        while sum(field) > -(rounds*100): # extend run time 
-            color = choice(COLOR_KEYS)
-            pixel_x = choice(x)
-            pixel_y = choice(y)
-            iters = field[pixel_x * 8 + pixel_y]
-            field[pixel_x * 8 + pixel_y] = iters - 1
-            #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
-            with canvas(device) as draw:
-                        draw.point((pixel_x, pixel_y), color_dict[color]["rgb"])
-            delay = (sum(field) / rounds) / (100 / pace)
-            if delay > 0:
-                sleep(delay)
-            else:
-                sleep(.0001)
-        return color
-
-
     return last
 
+def UseSenseHat(senseObj, x, y, pace, rounds):
+    field = [int(rounds) for i in range(len(x) * len(y))]
+    while sum(field) > -(rounds*100): # extend run time 
+        color = choice(COLOR_KEYS)
+        pixel_x = choice(x)
+        pixel_y = choice(y)
+        iters = field[pixel_x * 8 + pixel_y]
+        field[pixel_x * 8 + pixel_y] = iters - 1
+        senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+        delay = (sum(field) / rounds) / (100 / pace)
+        if delay > 0:
+            sleep(delay)
+        else:
+            sleep(.0001)
+    return color
+
+def UseGPIO(x, y, pace, rounds):
+    field = [int(rounds) for i in range(len(x) * len(y))]
+    while sum(field) > -(rounds*100): # extend run time 
+        color = choice(COLOR_KEYS)
+        pixel_x = choice(x)
+        pixel_y = choice(y)
+        iters = field[pixel_x * 8 + pixel_y]
+        field[pixel_x * 8 + pixel_y] = iters - 1
+        #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+        delay = (sum(field) / rounds) / (100 / pace)
+        if delay > 0:
+            sleep(delay)
+        else:
+            sleep(.0001)
+    return color
+
+def UseLumaLEDMatrix(device, x, y, pace, rounds):
+    field = [int(rounds) for i in range(len(x) * len(y))]
+    while sum(field) > -(rounds*100): # extend run time 
+        color = choice(COLOR_KEYS)
+        pixel_x = choice(x)
+        pixel_y = choice(y)
+        iters = field[pixel_x * 8 + pixel_y]
+        field[pixel_x * 8 + pixel_y] = iters - 1
+        #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+        with canvas(device) as draw:
+                    draw.point((pixel_x, pixel_y), color_dict[color]["rgb"])
+        delay = (sum(field) / rounds) / (100 / pace)
+        if delay > 0:
+            sleep(delay)
+        else:
+            sleep(.0001)
+    return color
 
 
 def random_to_solid(senseObj, colorName="black", x=index, y=index, fast=False, flicker=True):
