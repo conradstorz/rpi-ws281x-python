@@ -75,6 +75,10 @@ def UseGPIO(x, y, pace, rounds):
     return color
 
 def UseLumaLEDMatrix(device, x, y, pace, rounds):
+    if type(x) != list:
+        x = list(range(x))
+    if type(y) != list:
+        y = list(range(y))
     field = [int(rounds) for i in range(len(x) * len(y))]
     while sum(field) > -(rounds*100): # extend run time 
         color = choice(COLOR_KEYS)
