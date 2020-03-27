@@ -18,35 +18,8 @@ from luma.core.legacy.font import proportional, TINY_FONT
 xsize = 32
 ysize = 8
 
-# Create layout of BTF style NeoPixel matrix
-BTF_MATRIX = []
-map_x = xsize
-map_y = ysize
-for x in range(map_x):
-    ylist = list(range(x*map_y,x*map_y+map_y))
-    if x%2 == 0: # invert list to account for serpentine layout
-        ylist.reverse()
-    for y in ylist:
-        BTF_MATRIX.append(y)
 
-print(BTF_MATRIX)
-
-
-ALT_BTF = []
-map_x = xsize
-map_y = ysize
-xlist = list(range(map_x))
-for x in xlist:
-    ylist = list(range(x*map_y,x*map_y+map_y))
-    if x%2 == 1: # invert list to account for serpentine layout
-        ylist.reverse()
-    for y in ylist:
-        ALT_BTF.append(y)
-
-print(ALT_BTF)
-
-
-ALT2_BTF = []
+MAP_BTF = []
 tmp_BTF = []
 map_x = 32
 map_y = 8
@@ -60,13 +33,16 @@ for x in xlist:
 
 for y in range(map_y):
     for l in tmp_BTF:
-        ALT2_BTF.append(l[y])
+        MAP_BTF.append(l[y])
 
-print(ALT2_BTF)
+print(MAP_BTF)
 
 # create matrix device
-device = neopixel(width=xsize, height=ysize, mapping=ALT2_BTF, rotate=0)
+device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
+# call the random pixel effect
+from random_colors import UseLumaLEDMatrix
+result = UseLumaLEDMatrix(device, xsize, ysize)
 
 # twisty swirly goodness
 def swirl(x, y, step):
