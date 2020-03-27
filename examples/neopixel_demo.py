@@ -47,6 +47,7 @@ from random import choice, shuffle
 
 # twisty swirly goodness
 def swirl(x, y, step):
+    print('Swirl...')
     x -= (device.width / 2)
     y -= (device.height / 2)
 
@@ -67,6 +68,7 @@ def swirl(x, y, step):
 
 # roto-zooming checker board
 def checker(x, y, step):
+    print('Checker...')
     x -= (device.width / 2)
     y -= (device.height / 2)
 
@@ -98,6 +100,7 @@ def checker(x, y, step):
 
 # weeee waaaah
 def blues_and_twos(x, y, step):
+    print('Blues&2s...')
     x -= (device.width / 2)
     y -= (device.height / 2)
 
@@ -118,6 +121,7 @@ def blues_and_twos(x, y, step):
 
 # rainbow search spotlights
 def rainbow_search(x, y, step):
+    print('Rainbow Search...')
     xs = math.sin((step) / 100.0) * 20.0
     ys = math.cos((step) / 100.0) * 20.0
 
@@ -131,7 +135,7 @@ def rainbow_search(x, y, step):
 
 # zoom tunnel
 def tunnel(x, y, step):
-
+    print('Tunnel...')
     speed = step / 100.0
     x -= (device.width / 2)
     y -= (device.height / 2)
@@ -176,7 +180,7 @@ def tunnel(x, y, step):
 
 
 def gfx(device):
-    effects = [tunnel, rainbow_search, checker, swirl]
+    effects = [tunnel, rainbow_search, checker, swirl, blues_and_twos]
 
     step = 0
     while True:
