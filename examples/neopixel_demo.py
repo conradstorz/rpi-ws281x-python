@@ -248,9 +248,9 @@ def main():
 
 
     print('Vary intensity from 0 - 255')
-    for _ in range(5):
+    for _ in range(9):
         for intensity in range(16):
-            device.contrast(intensity * 16)
+            device.contrast(intensity * 4)
             time.sleep(0.1)
 
     print('Set contrast to: 0x80')
