@@ -43,7 +43,7 @@ device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 # call the random pixel effect
 from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
 from random import choice, shuffle
-#result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
 # twisty swirly goodness
 def swirl(x, y, step):
