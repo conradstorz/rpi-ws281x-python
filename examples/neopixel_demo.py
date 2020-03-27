@@ -237,14 +237,13 @@ def main():
 
     print('Draw lines in the rainbow')
     with canvas(device) as draw:
-        draw.line((0, 0, 0, device.height), fill="red")
-        draw.line((1, 0, 1, device.height), fill="orange")
-        draw.line((2, 0, 2, device.height), fill="yellow")
-        draw.line((3, 0, 3, device.height), fill="green")
-        draw.line((4, 0, 4, device.height), fill="blue")
-        draw.line((5, 0, 5, device.height), fill="indigo")
-        draw.line((6, 0, 6, device.height), fill="violet")
-        draw.line((7, 0, 7, device.height), fill="white")
+        draw.line([(0, 0), (device.width, 0)], fill="orange")
+        draw.line([(0, 1), (device.width, 1)], fill="yellow")
+        draw.line([(0, 2), (device.width, 2)], fill="green")
+        draw.line([(0, 3), (device.width, 3)], fill="blue")
+        draw.line([(0, 4), (device.width, 4)], fill="indigo")
+        draw.line([(0, 5), (device.width, 5)], fill="violet")
+        draw.line([(0, 6), (device.width, 6)], fill="white")
 
     time.sleep(4)
 
@@ -269,8 +268,8 @@ def main():
             clr = color_dict[rndcolor]['hex']            
             with canvas(device) as draw:
                 draw.line([(x, 0), (x, device.height)], fill=clr)
-            time.sleep(0.01)
-        time.sleep(0.01)
+            time.sleep(0.1)
+        time.sleep(0.1)
     time.sleep(2)
 
     print('scan lines up/down')
@@ -282,8 +281,8 @@ def main():
             clr = color_dict[rndcolor]['hex']             
             with canvas(device) as draw:
                 draw.line([(0, y), (device.width, y)], fill=clr)
-            time.sleep(0.01)
-        time.sleep(0.01)
+            time.sleep(0.1)
+        time.sleep(0.1)
     time.sleep(2)
 
 
