@@ -206,17 +206,17 @@ def gfx(device):
     return True
 
 
-def make_font(name, size):
-    font_path = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), 'fonts', name))
-    return ImageFont.truetype(font_path, size)
+#def make_font(name, size):
+#   font_path = os.path.abspath(os.path.join(
+#       os.path.dirname(__file__), 'fonts', name))
+#   return ImageFont.truetype(font_path, size)
 
 
 def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
     print(msg)
-    px8font = make_font("pixelmix.ttf", 8)
-    show_message(device, msg, y_offset=-1, fill="green", font = px8font)
+    #px8font = make_font("pixelmix.ttf", 8)
+    show_message(device, msg, y_offset=-1, fill="green", font = TINY_FONT)
     time.sleep(1)
 
     print('Draw text "A" and "T"')
