@@ -92,7 +92,8 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
     
     for _ in range(rounds):
         shuffle(Pixel_list) #randomize list
-        Pixel_list.append(Pixel_list) # double the list
+        for itm in Pixel_list:
+            Pixel_list.append(itm) # double the list
 
     print(Pixel_list)
     
