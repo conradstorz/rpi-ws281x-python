@@ -261,30 +261,30 @@ def main():
     print(device.width)
     xlist = list(range(device.width))
     print(xlist)
-    for x in range(device.width): #repeat scan for multiple
+    for x in range(10): #repeat scan for multiple
         print(x)
         xlist.reverse()
         print(xlist)
         for x in xlist: #scan the line through the list
             with canvas(device) as draw:
                 draw.line([(x, 0), (x, device.height)], fill="red")
-            time.sleep(0.001)
-        time.sleep(0.001)
+            time.sleep(0.01)
+        time.sleep(0.01)
     time.sleep(2)
 
     print('scan lines up/down')
     print(device.height)
     ylist = list(range(device.height))
     print(ylist)
-    for y in range(device.height): #repeat scan for multiple
+    for y in range(20): #repeat scan for multiple
         print(y)
         ylist.reverse()
         print(ylist)
         for y in ylist: #scan the line through the list
             with canvas(device) as draw:
                 draw.line([(0, y), (device.width, y)], fill="red")
-            time.sleep(0.001)
-        time.sleep(0.001)
+            time.sleep(0.01)
+        time.sleep(0.01)
     time.sleep(2)
 
 
