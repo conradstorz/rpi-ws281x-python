@@ -79,18 +79,23 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
         x = list(range(x))
     if type(y) != list:
         y = list(range(y))
+    # create a list of color values for matrix initially black
+    matrix = [(0,0,0) for i in range(len(x) * len(y))]
     field = [int(rounds) for i in range(len(x) * len(y))]
     while sum(field) > -(rounds*100): # extend run time
         with canvas(device) as draw:
-            for i in range(256):
-                color = choice(COLOR_KEYS)
-                pixel_x = choice(x)
-                pixel_y = choice(y)
-                iters = field[pixel_x * 8 + pixel_y]
-                field[pixel_x * 8 + pixel_y] = iters - 1
-                #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
-                color_tuple = tuple(color_dict[color]["rgb"])
-                draw.point((pixel_x, pixel_y), color_tuple)
+            color = choice(COLOR_KEYS)
+            pixel_x = choice(x)
+            pixel_y = choice(y)
+            pixel = pixel_x * 8 + pixel_y
+            iters = field[pixel]
+            field[pixel] = iters - 1
+            #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+            color_tuple = tuple(color_dict[color]["rgb"])
+            matrix[pixel] = color_tuple
+            for px in x:
+                for py in y:
+                    draw.point((px, py), matrix[px*8+py])
 
     return color
 
