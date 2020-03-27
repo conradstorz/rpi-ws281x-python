@@ -268,8 +268,8 @@ def main():
         for x in xlist: #scan the line through the list
             with canvas(device) as draw:
                 draw.line([(x, 0), (x, device.height)], fill="red")
-            time.sleep(0.1)
-        time.sleep(0.1)
+            time.sleep(0.001)
+        time.sleep(0.001)
     time.sleep(2)
 
     print('scan lines up/down')
@@ -283,8 +283,8 @@ def main():
         for y in ylist: #scan the line through the list
             with canvas(device) as draw:
                 draw.line([(0, y), (device.width, y)], fill="red")
-            time.sleep(0.1)
-        time.sleep(0.1)
+            time.sleep(0.001)
+        time.sleep(0.001)
     time.sleep(2)
 
 
