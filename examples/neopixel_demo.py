@@ -259,6 +259,7 @@ def main():
 
     print('scan lines across')
     #x&y are reversed for some reason
+    print(device.width)
     ylist = list(range(device.width))
     print(ylist)
     for x in range(device.height): #repeat scan for multiple
@@ -273,14 +274,16 @@ def main():
 
     print('scan lines up/down')
     #x&y are reversed for some reason
+    print(device.height)
     xlist = list(range(device.height))
     print(xlist)
     for y in range(device.width): #repeat scan for multiple
         print(y)
         if y%2 == 0: xlist.reverse()
+        print(xlist)
         for x in xlist: #scan the line through the list
             with canvas(device) as draw:
-                draw.line([(x, 0), (x, device.height)], fill="red")
+                draw.line([(0, x), (device.height, x)], fill="red")
             time.sleep(0.1)
 
     time.sleep(2)
