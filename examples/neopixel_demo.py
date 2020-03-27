@@ -47,7 +47,7 @@ from random import choice, shuffle
 
 # twisty swirly goodness
 def swirl(x, y, step):
-    print('Swirl...')
+
     x -= (device.width / 2)
     y -= (device.height / 2)
 
@@ -68,7 +68,7 @@ def swirl(x, y, step):
 
 # roto-zooming checker board
 def checker(x, y, step):
-    print('Checker...')
+
     x -= (device.width / 2)
     y -= (device.height / 2)
 
@@ -100,7 +100,7 @@ def checker(x, y, step):
 
 # weeee waaaah
 def blues_and_twos(x, y, step):
-    print('Blues&2s...')
+
     x -= (device.width / 2)
     y -= (device.height / 2)
 
@@ -121,7 +121,7 @@ def blues_and_twos(x, y, step):
 
 # rainbow search spotlights
 def rainbow_search(x, y, step):
-    print('Rainbow Search...')
+
     xs = math.sin((step) / 100.0) * 20.0
     ys = math.cos((step) / 100.0) * 20.0
 
@@ -135,7 +135,7 @@ def rainbow_search(x, y, step):
 
 # zoom tunnel
 def tunnel(x, y, step):
-    print('Tunnel...')
+
     speed = step / 100.0
     x -= (device.width / 2)
     y -= (device.height / 2)
@@ -185,6 +185,7 @@ def gfx(device):
     step = 0
     while True:
         for i in range(500):
+            print(dir(effects[0]))
             with canvas(device) as draw:
                 for y in range(device.height):
                     for x in range(device.width):
@@ -251,10 +252,10 @@ def main():
     time.sleep(4)
 
 
-    print('Vary intensity from 0 - 255')
+    print('Vary intensity from 0 - 27')
     for _ in range(9):
         for intensity in range(16):
-            device.contrast(intensity * 4)
+            device.contrast(intensity * 3)
             time.sleep(0.1)
 
     print('Set contrast to: 0x80')
@@ -264,7 +265,7 @@ def main():
 
     print('scan lines across')
     xlist = list(range(device.width))
-    for x in range(10): #repeat scan for multiple
+    for x in range(3): #repeat scan for multiple
         xlist.reverse()
         for x in xlist: #scan the line through the list
             rndcolor = choice(COLOR_KEYS)
@@ -277,7 +278,7 @@ def main():
 
     print('scan lines up/down')
     ylist = list(range(device.height))
-    for y in range(20): #repeat scan for multiple
+    for y in range(10): #repeat scan for multiple
         ylist.reverse()
         for y in ylist: #scan the line through the list
             rndcolor = choice(COLOR_KEYS)
