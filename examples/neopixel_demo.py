@@ -224,20 +224,20 @@ def main():
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]['hex']
     show_message(device, msg, y_offset=-1, fill=clr, font = TINY_FONT)
-    time.sleep(1)
+    time.sleep(.1)
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
         text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
-    time.sleep(1)
+    time.sleep(.1)
 
-    with canvas(device) as draw:
+    #with canvas(device) as draw:
         #rectangle(draw, device.bounding_box, outline="white", fill="black")
-        text(draw, (0, -1), "Hello world", fill="white", font=TINY_FONT)
+        #text(draw, (0, -1), "Hello world", fill="white", font=TINY_FONT)
 
-    time.sleep(2)
+    time.sleep(0)
 
     print('Draw lines in the rainbow')
     with canvas(device) as draw:
@@ -249,15 +249,17 @@ def main():
         draw.line([(0, 5), (device.width, 5)], fill="violet")
         draw.line([(0, 6), (device.width, 6)], fill="white")
 
-    time.sleep(4)
+    time.sleep(.1)
 
 
-    print('Vary intensity from 0 - 27')
+    print('Vary intensity from 0 - 32')
     for _ in range(9):
         for intensity in range(16):
-            device.contrast(intensity * 3)
+            device.contrast(intensity * 2)
             time.sleep(0.1)
 
+    
+    """
     print('Set contrast to: 0x80')
     device.contrast(0x80)
     time.sleep(1)
@@ -297,6 +299,7 @@ def main():
     print('Start "gfx" routine')
     gfx(device)
     return True
+    """
 
 
 if __name__ == "__main__":

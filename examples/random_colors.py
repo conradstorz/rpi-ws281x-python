@@ -74,7 +74,45 @@ def UseGPIO(x, y, pace, rounds):
             sleep(.0001)
     return color
 
+
 def UseLumaLEDMatrix(device, x, y, pace, rounds):
+    """ Send commands to NeoPixels through RaspberryPi GPIO
+    device = Luma.led_matrix object
+    x,y = integer width,height
+    pace = integer 1-999 (1 faster)
+    rounds = integer 1-999 repetitions
+    """
+    # generate random lists
+    matrix_size = x*y
+    Color_list = []
+    for _ in range(matrix_size):
+        Color_list.append(color_dict[choice(COLOR_KEYS)]['hex'])
+    print(Color_list)
+    """
+    # create a list of color values for matrix initially 
+    baseColor = color_dict["air_force_blue_usaf"]['hex']
+    matrix = [baseColor for i in range(len(x) * len(y))]
+    field = [int(rounds) for i in range(len(x) * len(y))]
+    while sum(field) > -(rounds*100): # extend run time
+        with canvas(device) as draw:
+            color = choice(COLOR_KEYS)
+            pixel_x = choice(x)
+            pixel_y = choice(y)
+            pixel = pixel_x * 8 + pixel_y
+            iters = field[pixel]
+            field[pixel] = iters - 1
+            #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+            #color_tuple = tuple(color_dict[color]["rgb"])
+            matrix[pixel] = color_dict[color]["hex"]
+            for px in x:
+                for py in y:
+                    draw.point((px, py), matrix[px*8+py])
+    """
+    return color
+
+
+
+def UseLumaLEDMatrixOLD(device, x, y, pace, rounds):
     if type(x) != list:
         x = list(range(x))
     if type(y) != list:
