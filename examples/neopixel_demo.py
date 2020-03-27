@@ -36,7 +36,6 @@ for y in range(map_y):
     for l in tmp_BTF:
         MAP_BTF.append(l[y])
 
-print(MAP_BTF)
 
 # create matrix device
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
@@ -291,7 +290,7 @@ def main():
     time.sleep(1)
 
     print('Start "gfx" routine')
-    #gfx(device)
+    gfx(device)
     return True
 
 
