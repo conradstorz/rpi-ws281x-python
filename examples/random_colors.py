@@ -87,8 +87,9 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
         iters = field[pixel_x * 8 + pixel_y]
         field[pixel_x * 8 + pixel_y] = iters - 1
         #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+        color_tuple = tuple(color_dict[color]["rgb"])
         with canvas(device) as draw:
-                    draw.point((pixel_x, pixel_y), color_dict[color]["rgb"])
+                    draw.point((pixel_x, pixel_y), color_tuple)
         delay = (sum(field) / rounds) / (100 / pace)
         if delay > 0:
             sleep(delay)
