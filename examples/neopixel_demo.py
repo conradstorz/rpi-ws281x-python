@@ -184,8 +184,8 @@ def gfx(device):
 
     step = 0
     while True:
+        print(effects[0])       
         for i in range(500):
-            print(dir(effects[0]))
             with canvas(device) as draw:
                 for y in range(device.height):
                     for x in range(device.width):
