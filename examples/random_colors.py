@@ -80,7 +80,7 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
     if type(y) != list:
         y = list(range(y))
     # create a list of color values for matrix initially 
-    baseColor = color_dict['Air Force Blue (Usaf)']['hex']
+    baseColor = color_dict["air_force_blue_usaf"]['hex']
     matrix = [baseColor for i in range(len(x) * len(y))]
     field = [int(rounds) for i in range(len(x) * len(y))]
     while sum(field) > -(rounds*100): # extend run time
