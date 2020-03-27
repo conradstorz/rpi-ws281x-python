@@ -43,7 +43,7 @@ device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
 # call the random pixel effect
 from random_colors import UseLumaLEDMatrix
-#result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
 # twisty swirly goodness
 def swirl(x, y, step):
@@ -258,13 +258,9 @@ def main():
 
 
     print('scan lines across')
-    print(device.width)
     xlist = list(range(device.width))
-    print(xlist)
     for x in range(10): #repeat scan for multiple
-        print(x)
         xlist.reverse()
-        print(xlist)
         for x in xlist: #scan the line through the list
             with canvas(device) as draw:
                 draw.line([(x, 0), (x, device.height)], fill="red")
@@ -273,13 +269,9 @@ def main():
     time.sleep(2)
 
     print('scan lines up/down')
-    print(device.height)
     ylist = list(range(device.height))
-    print(ylist)
     for y in range(20): #repeat scan for multiple
-        print(y)
         ylist.reverse()
-        print(ylist)
         for y in ylist: #scan the line through the list
             with canvas(device) as draw:
                 draw.line([(0, y), (device.width, y)], fill="red")
