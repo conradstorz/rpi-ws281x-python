@@ -237,7 +237,7 @@ def main():
 
     print('Draw lines in the rainbow')
     with canvas(device) as draw:
-        draw.line([(0, 0), (device.width, 0)], fill="orange")
+        draw.line([(0, 0), (device.width, 0)], fill="red")
         draw.line([(0, 1), (device.width, 1)], fill="yellow")
         draw.line([(0, 2), (device.width, 2)], fill="green")
         draw.line([(0, 3), (device.width, 3)], fill="blue")
