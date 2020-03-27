@@ -41,7 +41,7 @@ print(MAP_BTF)
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
 # call the random pixel effect
-from ./library/random_colors import UseLumaLEDMatrix
+from random_colors import UseLumaLEDMatrix
 result = UseLumaLEDMatrix(device, xsize, ysize)
 
 # twisty swirly goodness
