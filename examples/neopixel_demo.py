@@ -42,7 +42,7 @@ device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
 # call the random pixel effect
 from random_colors import UseLumaLEDMatrix
-result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+#result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
 # twisty swirly goodness
 def swirl(x, y, step):
@@ -208,7 +208,8 @@ def gfx(device):
 def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
     print(msg)
-    show_message(device, msg, y_offset=-1, fill="green", font=proportional(TINY_FONT))
+    px8font = make_font("pixelmix.ttf", 8)
+    show_message(device, msg, y_offset=-1, fill="green", font = px8font)
     time.sleep(1)
 
     print('Draw text "A" and "T"')
