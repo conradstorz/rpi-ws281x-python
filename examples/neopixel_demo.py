@@ -14,6 +14,7 @@ from luma.led_matrix.device import neopixel
 from luma.core.render import canvas
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, TINY_FONT
+from PIL import ImageFont
 
 xsize = 32
 ysize = 8
@@ -205,6 +206,12 @@ def gfx(device):
     return True
 
 
+def make_font(name, size):
+    font_path = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), 'fonts', name))
+    return ImageFont.truetype(font_path, size)
+
+
 def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
     print(msg)
@@ -259,8 +266,8 @@ def main():
         if x%2 == 0: ylist.reverse()
         for y in ylist: #scan the line through the list
             with canvas(device) as draw:
-                draw.line((y, 0, y, device.width), fill="red")
-                time.sleep(0.1)
+                draw.line([(y, 0), (y, device.width)], fill="red")
+            time.sleep(0.1)
 
     time.sleep(2)
 
@@ -273,8 +280,8 @@ def main():
         if y%2 == 0: xlist.reverse()
         for x in xlist: #scan the line through the list
             with canvas(device) as draw:
-                draw.line((x, 0, x, device.height), fill="red")
-                time.sleep(0.1)
+                draw.line([(x, 0), (x, device.height)], fill="red")
+            time.sleep(0.1)
 
     time.sleep(2)
 
