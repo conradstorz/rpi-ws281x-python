@@ -42,8 +42,9 @@ print(MAP_BTF)
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
 # call the random pixel effect
-from random_colors import UseLumaLEDMatrix
-result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
+from random import choice, shuffle
+#result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
 # twisty swirly goodness
 def swirl(x, y, step):
@@ -216,7 +217,9 @@ def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
     print(msg)
     #px8font = make_font("pixelmix.ttf", 8)
-    show_message(device, msg, y_offset=-1, fill="green", font = TINY_FONT)
+    rndcolor = choice(COLOR_KEYS)
+    clr = color_dict[rndcolor]['hex']
+    show_message(device, msg, y_offset=-1, fill=clr, font = TINY_FONT)
     time.sleep(1)
 
     print('Draw text "A" and "T"')
@@ -262,8 +265,10 @@ def main():
     for x in range(10): #repeat scan for multiple
         xlist.reverse()
         for x in xlist: #scan the line through the list
+            rndcolor = choice(COLOR_KEYS)
+            clr = color_dict[rndcolor]['hex']            
             with canvas(device) as draw:
-                draw.line([(x, 0), (x, device.height)], fill="red")
+                draw.line([(x, 0), (x, device.height)], fill=clr)
             time.sleep(0.01)
         time.sleep(0.01)
     time.sleep(2)
@@ -273,8 +278,10 @@ def main():
     for y in range(20): #repeat scan for multiple
         ylist.reverse()
         for y in ylist: #scan the line through the list
+            rndcolor = choice(COLOR_KEYS)
+            clr = color_dict[rndcolor]['hex']             
             with canvas(device) as draw:
-                draw.line([(0, y), (device.width, y)], fill="red")
+                draw.line([(0, y), (device.width, y)], fill=clr)
             time.sleep(0.01)
         time.sleep(0.01)
     time.sleep(2)
