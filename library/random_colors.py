@@ -22,7 +22,7 @@ except ImportError as e:
     SenseHatLoaded = False
 
 # Load color codes
-with open("rgb_color_codes.json", "r") as read_file:
+with open("./library/rgb_color_codes.json", "r") as read_file:
     color_dict = json.load(read_file)
 
 COLOR_KEYS = list(color_dict.keys())
