@@ -85,9 +85,16 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
     # generate random lists
     matrix_size = x*y
     Color_list = []
-    for _ in range(matrix_size):
+    Pixel_list = []
+    for i in range(matrix_size):
+        Pixel_list.append(i)
         Color_list.append(color_dict[choice(COLOR_KEYS)]['hex'])
-    print(Color_list)
+
+    Pixel_list.shuffle() #randomize list
+
+    print(Pixel_list)
+    
+
     """
     # create a list of color values for matrix initially 
     baseColor = color_dict["air_force_blue_usaf"]['hex']
