@@ -15,22 +15,24 @@ from luma.core.render import canvas
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, TINY_FONT
 from PIL import ImageFont
+from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
+from random import choice, shuffle
 
 xsize = 32
 ysize = 8
 
-
+# build a pixel mapping for BTF matrix device
 MAP_BTF = []
 tmp_BTF = []
-map_x = 32
-map_y = 8
+map_x = xsize
+map_y = ysize
 xlist = list(range(map_x))
+
 for x in xlist:
     ylist = list(range(x*map_y,x*map_y+map_y))
     if x%2 == 1: # invert list to account for serpentine layout
         ylist.reverse()
     tmp_BTF.append(ylist)
-
 
 for y in range(map_y):
     for l in tmp_BTF:
@@ -40,10 +42,6 @@ for y in range(map_y):
 # create matrix device
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
-# call the random pixel effect
-from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
-from random import choice, shuffle
-result = UseLumaLEDMatrix(device, xsize, ysize, 1, 3)
 
 # twisty swirly goodness
 def swirl(x, y, step):
@@ -181,7 +179,7 @@ def tunnel(x, y, step):
 
 def gfx(device):
     effects = [tunnel, rainbow_search, checker, swirl, blues_and_twos]
-
+    effects.shuffle()
     step = 0
     while True:
         print(effects[0])       
@@ -225,6 +223,11 @@ def main():
     clr = color_dict[rndcolor]['hex']
     show_message(device, msg, y_offset=-1, fill=clr, font = TINY_FONT)
     time.sleep(.1)
+
+
+    # call the random pixel effect
+    result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:

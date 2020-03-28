@@ -127,7 +127,7 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
             color = colorCopy.pop()
             SetBuffer(displayBuffer, pxl, color)
         UpdateDisplay(device, displayBuffer)
-        sleep(.5)
+        sleep(.01)
 
     return color
 
