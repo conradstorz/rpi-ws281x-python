@@ -82,6 +82,29 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
     pace = integer 1-999 (1 faster)
     rounds = integer 1-999 repetitions
     """
+
+    def UpdateDisplay(device, buffer):
+        """ flush buffer out to display.
+        device = luma.LED_matrix object
+        buffer = dict of pixel data keyed by (x,y)
+            holding the ink value for pixel
+            example: buffer[(x,y)] = ink
+        """
+        with canvas(device) as draw:
+            for pxl in buffer.keys():
+                xy = pxl
+                ink = buffer[pxl]
+                draw.point(xy, ink)
+        return True
+
+    def SetBuffer(buffer, pxl, ink):
+        """ Place pixel location and color in the buffer dictionary.
+        pxls are unique so they are the key to the dict.
+        """
+        buffer[pxl] = ink
+        return True
+
+    displayBuffer = dict()
     # generate random lists
     matrix_size = x*y
     Color_list = []
@@ -90,35 +113,22 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
         Pixel_list.append(i)
         Color_list.append(color_dict[choice(COLOR_KEYS)]['hex'])
     
-    for _ in range(rounds):
+    for _ in range(rounds): # grow the list
         shuffle(Pixel_list) #randomize list
         listcopy = Pixel_list.copy()
         for itm in listcopy:
-            Pixel_list.append(itm) # double the list
+            Pixel_list.append(itm)
 
-    print(Pixel_list)
-    
+    while len(Pixel_list) > 0
+        colorCopy = Color_list.copy()
+        while len(colorCopy) > 0:
+            pixel = Pixel_list.pop()
+            pxl = tuple([int(pixel/8),pixel%8])
+            color = colorCopy.pop()
+            SetBuffer(displayBuffer, pxl, color)
+        UpdateDisplay(device, displayBuffer)
+        sleep(.5)
 
-    """
-    # create a list of color values for matrix initially 
-    baseColor = color_dict["air_force_blue_usaf"]['hex']
-    matrix = [baseColor for i in range(len(x) * len(y))]
-    field = [int(rounds) for i in range(len(x) * len(y))]
-    while sum(field) > -(rounds*100): # extend run time
-        with canvas(device) as draw:
-            color = choice(COLOR_KEYS)
-            pixel_x = choice(x)
-            pixel_y = choice(y)
-            pixel = pixel_x * 8 + pixel_y
-            iters = field[pixel]
-            field[pixel] = iters - 1
-            #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
-            #color_tuple = tuple(color_dict[color]["rgb"])
-            matrix[pixel] = color_dict[color]["hex"]
-            for px in x:
-                for py in y:
-                    draw.point((px, py), matrix[px*8+py])
-    """
     return color
 
 
