@@ -179,7 +179,7 @@ def tunnel(x, y, step):
 
 def gfx(device):
     effects = [tunnel, rainbow_search, checker, swirl, blues_and_twos]
-    effects.shuffle()
+    shuffle(effects)
     step = 0
     while True:
         print(effects[0])       
@@ -296,8 +296,8 @@ def main():
     time.sleep(2)
 
 
-    print('Set contrast to: 0x80')
-    device.contrast(0x80)
+    print('Set contrast to: 32')
+    device.contrast(32)
     time.sleep(1)
 
     print('Start "gfx" routine')
