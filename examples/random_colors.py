@@ -119,7 +119,7 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
         for itm in listcopy:
             Pixel_list.append(itm)
 
-    while len(Pixel_list) > 0
+    while len(Pixel_list) > 0:
         colorCopy = Color_list.copy()
         while len(colorCopy) > 0:
             pixel = Pixel_list.pop()
