@@ -109,25 +109,22 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
     matrix_size = x*y
     Color_list = []
     Pixel_list = []
+
     for i in range(matrix_size):
         Pixel_list.append(i)
         Color_list.append(color_dict[choice(COLOR_KEYS)]['hex'])
     
-    for _ in range(rounds): # grow the list
-        shuffle(Pixel_list) #randomize list
-        listcopy = Pixel_list.copy()
-        for itm in listcopy:
-            Pixel_list.append(itm)
 
-    while len(Pixel_list) > 0:
+    for _ in range(rounds):
+        plist = Pixel_list.copy()
         colorCopy = Color_list.copy()
         while len(colorCopy) > 0:
-            pixel = Pixel_list.pop()
+            pixel = plist.pop()
             pxl = tuple([int(pixel/8),pixel%8])
             color = colorCopy.pop()
             SetBuffer(displayBuffer, pxl, color)
         UpdateDisplay(device, displayBuffer)
-        sleep(.01)
+        sleep(0.001)
 
     return color
 
