@@ -234,7 +234,7 @@ def main():
         text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
-    time.sleep(.3)
+    time.sleep(1)
 
     #with canvas(device) as draw:
         #rectangle(draw, device.bounding_box, outline="white", fill="black")
@@ -253,7 +253,7 @@ def main():
         draw.line([(0, 5), (device.width, 5)], fill="violet")
         draw.line([(0, 6), (device.width, 6)], fill="white")
 
-    time.sleep(.5)
+    time.sleep(2)
 
 
     print('Vary intensity from 0 - 32')
@@ -263,7 +263,7 @@ def main():
             time.sleep(0.1)
 
     
-    """
+
     print('Set contrast to: 0x80')
     device.contrast(0x80)
     time.sleep(1)
@@ -303,7 +303,7 @@ def main():
     print('Start "gfx" routine')
     gfx(device)
     return True
-    """
+
 
 
 if __name__ == "__main__":
