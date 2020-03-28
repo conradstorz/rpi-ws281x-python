@@ -234,7 +234,7 @@ def main():
         text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
-    time.sleep(.1)
+    time.sleep(.3)
 
     #with canvas(device) as draw:
         #rectangle(draw, device.bounding_box, outline="white", fill="black")
@@ -243,6 +243,7 @@ def main():
     time.sleep(0)
 
     print('Draw lines in the rainbow')
+    device.contrast(8)
     with canvas(device) as draw:
         draw.line([(0, 0), (device.width, 0)], fill="red")
         draw.line([(0, 1), (device.width, 1)], fill="yellow")
@@ -252,7 +253,7 @@ def main():
         draw.line([(0, 5), (device.width, 5)], fill="violet")
         draw.line([(0, 6), (device.width, 6)], fill="white")
 
-    time.sleep(.1)
+    time.sleep(.5)
 
 
     print('Vary intensity from 0 - 32')
