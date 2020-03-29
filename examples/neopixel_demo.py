@@ -201,7 +201,7 @@ def gfx(device):
     while True:
         print(effects[0])       
         for i in range(500):
-            if i = 400: print('blending...')
+            if i == 400: print('blending...')
             with canvas(device) as draw:
                 for y in range(device.height):
                     for x in range(device.width):
