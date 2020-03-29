@@ -177,6 +177,23 @@ def tunnel(x, y, step):
     return (col[0] * 255, col[1] * 255, col[2] * 255)
 
 
+def blend_into_next_effect(effects, x, y, step):
+    r2, g2, b2 = effects[-1](x, y, step)
+
+    ratio = (500.00 - i) / 100.0
+    r = r * ratio + r2 * (1.0 - ratio)
+    g = g * ratio + g2 * (1.0 - ratio)
+    b = b * ratio + b2 * (1.0 - ratio)    
+    return (r,g,b)
+
+
+def set_bounds_limits(r, g, b):
+    r = int(max(0, min(255, r)))
+    g = int(max(0, min(255, g)))
+    b = int(max(0, min(255, b)))
+    return (r, g, b)
+
+
 def gfx(device):
     effects = [tunnel, rainbow_search, checker, swirl, blues_and_twos]
     shuffle(effects)
@@ -189,15 +206,8 @@ def gfx(device):
                     for x in range(device.width):
                         r, g, b = effects[0](x, y, step)
                         if i > 400:
-                            r2, g2, b2 = effects[-1](x, y, step)
+                            r, g, b = blend_into_next_effect(effects, x, y, step)
 
-                            ratio = (500.00 - i) / 100.0
-                            r = r * ratio + r2 * (1.0 - ratio)
-                            g = g * ratio + g2 * (1.0 - ratio)
-                            b = b * ratio + b2 * (1.0 - ratio)
-                        r = int(max(0, min(255, r)))
-                        g = int(max(0, min(255, g)))
-                        b = int(max(0, min(255, b)))
                         draw.point((x, y), (r, g, b))
 
             step += 1
