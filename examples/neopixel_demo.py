@@ -177,7 +177,7 @@ def tunnel(x, y, step):
     return (col[0] * 255, col[1] * 255, col[2] * 255)
 
 
-def blend_into_next_effect(effects, x, y, step, ImageFont):
+def blend_into_next_effect(effects, x, y, step, i):
     r2, g2, b2 = effects[-1](x, y, step)
 
     ratio = (500.00 - i) / 100.0
