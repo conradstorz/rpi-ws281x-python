@@ -177,7 +177,7 @@ def tunnel(x, y, step):
     return (col[0] * 255, col[1] * 255, col[2] * 255)
 
 
-def blend_into_next_effect(effects, x, y, step, i):
+def blend_into_next_effect(effects, x, y, step, i,r,g,b):
     r2, g2, b2 = effects[-1](x, y, step)
 
     ratio = (500.00 - i) / 100.0
@@ -207,7 +207,7 @@ def gfx(device):
                     for x in range(device.width):
                         r, g, b = effects[0](x, y, step)
                         if i > 400:
-                            r, g, b = blend_into_next_effect(effects, x, y, step, i)
+                            r, g, b = blend_into_next_effect(effects,x,y,step,i,r,g,b)
                         r, g, b = set_bounds_limits(r, g, b)
                         draw.point((x, y), (r, g, b))
 
