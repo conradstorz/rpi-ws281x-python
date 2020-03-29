@@ -207,7 +207,7 @@ def gfx(device):
                         r, g, b = effects[0](x, y, step)
                         if i > 400:
                             r, g, b = blend_into_next_effect(effects, x, y, step)
-
+                        r, g, b = set_bounds_limits(r, g, b)
                         draw.point((x, y), (r, g, b))
 
             step += 1
