@@ -209,10 +209,10 @@ def gfx(device):
     shuffle(effects)
     step = 0
     while True:
-        print(effects[0])
+        print(f'Displaying effect: {effects[0]}')
         for i in range(500):
             if i == 400:
-                print("blending...")
+                print(f"blending with {effects[-1]}")
             with canvas(device) as draw:
                 for y in range(device.height):
                     for x in range(device.width):
@@ -226,7 +226,7 @@ def gfx(device):
 
             step += 1
 
-            time.sleep(0.01)
+            time.sleep(0.005)
 
         effect = effects.pop()
         effects.insert(0, effect)
