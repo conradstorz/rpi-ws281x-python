@@ -13,8 +13,9 @@ import colorsys
 from luma.led_matrix.device import neopixel
 from luma.core.render import canvas
 from luma.core.legacy import text, show_message
-from luma.core.legacy.font import proportional, TINY_FONT
-from PIL import ImageFont
+from luma.core.legacy.font import TINY_FONT
+
+# from PIL import ImageFont
 from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
 from random import choice, shuffle
 
@@ -51,17 +52,17 @@ def swirl(x, y, step):
 
     dist = math.sqrt(pow(x, 2) + pow(y, 2)) / 2.0
     angle = (step / 10.0) + (dist * 1.5)
-    s = math.sin(angle)
-    c = math.cos(angle)
+    sa = math.sin(angle)
+    ca = math.cos(angle)
 
-    xs = x * c - y * s
-    ys = x * s + y * c
+    xs = x * ca - y * sa
+    ys = x * sa + y * ca
 
     r = abs(xs + ys)
     r = r * 64.0
     r -= 20
 
-    return (r, r + (s * 130), r + (c * 130))
+    return (r, r + (sa * 130), r + (ca * 130))
 
 
 # roto-zooming checker board
@@ -71,11 +72,11 @@ def checker(x, y, step):
     y -= device.height / 2
 
     angle = step / 10.0
-    s = math.sin(angle)
-    c = math.cos(angle)
+    sa = math.sin(angle)
+    ca = math.cos(angle)
 
-    xs = x * c - y * s
-    ys = x * s + y * c
+    xs = x * ca - y * sa
+    ys = x * sa + y * ca
 
     xs -= math.sin(step / 200.0) * 40.0
     ys -= math.cos(step / 200.0) * 40.0
@@ -90,9 +91,9 @@ def checker(x, y, step):
     xo = abs(xs) - int(abs(xs))
     yo = abs(ys) - int(abs(ys))
     xyfloor = math.floor(xs) + math.floor(ys)
-    l = 0 if xyfloor % 2 else 1 if xo > 0.1 and yo > 0.1 else 0.5
+    lightness = 0 if xyfloor % 2 else 1 if xo > 0.1 and yo > 0.1 else 0.5
 
-    r, g, b = colorsys.hsv_to_rgb((step % 255) / 255.0, 1, l)
+    r, g, b = colorsys.hsv_to_rgb((step % 255) / 255.0, 1, lightness)
 
     return (r * 255, g * 255, b * 255)
 
@@ -178,10 +179,31 @@ def tunnel(x, y, step):
     return (col[0] * 255, col[1] * 255, col[2] * 255)
 
 
-def blend_into_next_effect(effects, x, y, step, i, r, g, b):
-    r2, g2, b2 = effects[-1](x, y, step)
+DISPLAY_BUFFER = dict(dict())
 
-    ratio = (500.00 - i) / 100.0
+
+def update_display_buffer(point, color):
+    """Keep record of all display points.
+
+    point = tuple(x,y)
+    color = tuple(r,g,b)
+    """
+    DISPLAY_BUFFER[point[0]][point[1]] = color
+    return True
+
+
+def blend_into_next_effect(effects, point, incr, color):
+    """Blend together 2 function results.
+
+    effects = list of function pointers
+    point = tuple(x, y, step)
+    incr = current iteration
+    color = tuple(r, g, b)
+    """
+    r, g, b = color  # unpack tuple
+    r2, g2, b2 = effects[-1](point)
+
+    ratio = (500.00 - incr) / 100.0
     r = r * ratio + r2 * (1.0 - ratio)
     g = g * ratio + g2 * (1.0 - ratio)
     b = b * ratio + b2 * (1.0 - ratio)
@@ -210,11 +232,11 @@ def gfx(device):
                         r, g, b = effects[0](x, y, step)
                         if i > 400:
                             r, g, b = blend_into_next_effect(
-                                effects, x, y, step, i, r, g, b
+                                effects, (x, y, step), i, (r, g, b)
                             )
                         r, g, b = set_bounds_limits(r, g, b)
                         draw.point((x, y), (r, g, b))
-
+                        update_display_buffer((x, y), (r, g, b))
             step += 1
 
             time.sleep(0.01)
@@ -240,7 +262,7 @@ def main():
     time.sleep(0.1)
 
     # call the random pixel effect
-    result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+    UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
