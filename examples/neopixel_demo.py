@@ -239,6 +239,34 @@ def gfx(device):
 #       os.path.dirname(__file__), 'fonts', name))
 #   return ImageFont.truetype(font_path, size)
 
+def scan_up_down():
+    print("scan lines up/down")
+    ylist = list(range(device.height))
+    for y in range(10):  # repeat scan for multiple
+        ylist.reverse()
+        for y in ylist:  # scan the line through the list
+            rndcolor = choice(COLOR_KEYS)
+            clr = color_dict[rndcolor]["hex"]
+            with canvas(device) as draw:
+                draw.line([(0, y), (device.width, y)], fill=clr)
+            time.sleep(0.1)
+        time.sleep(0.1)
+    time.sleep(2)
+    return True
+
+def scan_across():
+    print("scan lines across")
+    xlist = list(range(device.width))
+    for x in range(3):  # repeat scan for multiple
+        xlist.reverse()
+        for x in xlist:  # scan the line through the list
+            rndcolor = choice(COLOR_KEYS)
+            clr = color_dict[rndcolor]["hex"]
+            with canvas(device) as draw:
+                draw.line([(x, 0), (x, device.height)], fill=clr)
+            time.sleep(0.1)
+        time.sleep(0.1)
+    time.sleep(2)
 
 def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
@@ -288,35 +316,13 @@ def main():
     device.contrast(0x80)
     #time.sleep(1)
 
-    print("scan lines across")
-    xlist = list(range(device.width))
-    for x in range(3):  # repeat scan for multiple
-        xlist.reverse()
-        for x in xlist:  # scan the line through the list
-            rndcolor = choice(COLOR_KEYS)
-            clr = color_dict[rndcolor]["hex"]
-            with canvas(device) as draw:
-                draw.line([(x, 0), (x, device.height)], fill=clr)
-            time.sleep(0.1)
-        time.sleep(0.1)
-    time.sleep(2)
+    scan_across()
 
-    print("scan lines up/down")
-    ylist = list(range(device.height))
-    for y in range(10):  # repeat scan for multiple
-        ylist.reverse()
-        for y in ylist:  # scan the line through the list
-            rndcolor = choice(COLOR_KEYS)
-            clr = color_dict[rndcolor]["hex"]
-            with canvas(device) as draw:
-                draw.line([(0, y), (device.width, y)], fill=clr)
-            time.sleep(0.1)
-        time.sleep(0.1)
-    time.sleep(2)
+    scan_up_down()
 
     print("Set contrast to: 32")
     device.contrast(32)
-    time.sleep(1)
+    #time.sleep(1)
 
     print('Start "gfx" routine')
     gfx(device)
