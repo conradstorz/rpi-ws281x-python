@@ -11,12 +11,14 @@ from itertools import product
 from random import choice, shuffle
 from time import sleep
 import json
-#from sense_hat import SenseHat
+
+# from sense_hat import SenseHat
 
 # detect various add-on Rpi hats
 try:
     SenseHatLoaded = True
     from sense_hat import SenseHat
+
     senseObj = SenseHat()
 except ImportError as e:
     SenseHatLoaded = False
@@ -28,7 +30,8 @@ with open("rgb_color_codes.json", "r") as read_file:
 COLOR_KEYS = list(color_dict.keys())
 
 
-index = list(range(8)) # establish a default index for 8x8 pixel disply
+index = list(range(8))  # establish a default index for 8x8 pixel disply
+
 
 def Set_Random_Pixels(senseObj, x=index, y=index, pace=0.01, rounds=99):
     """ Fill display with random pixel colors.
@@ -42,9 +45,10 @@ def Set_Random_Pixels(senseObj, x=index, y=index, pace=0.01, rounds=99):
 
     return last
 
+
 def UseSenseHat(senseObj, x, y, pace, rounds):
     field = [int(rounds) for i in range(len(x) * len(y))]
-    while sum(field) > -(rounds*100): # extend run time 
+    while sum(field) > -(rounds * 100):  # extend run time
         color = choice(COLOR_KEYS)
         pixel_x = choice(x)
         pixel_y = choice(y)
@@ -55,23 +59,24 @@ def UseSenseHat(senseObj, x, y, pace, rounds):
         if delay > 0:
             sleep(delay)
         else:
-            sleep(.0001)
+            sleep(0.0001)
     return color
+
 
 def UseGPIO(x, y, pace, rounds):
     field = [int(rounds) for i in range(len(x) * len(y))]
-    while sum(field) > -(rounds*100): # extend run time 
+    while sum(field) > -(rounds * 100):  # extend run time
         color = choice(COLOR_KEYS)
         pixel_x = choice(x)
         pixel_y = choice(y)
         iters = field[pixel_x * 8 + pixel_y]
         field[pixel_x * 8 + pixel_y] = iters - 1
-        #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+        # senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
         delay = (sum(field) / rounds) / (100 / pace)
         if delay > 0:
             sleep(delay)
         else:
-            sleep(.0001)
+            sleep(0.0001)
     return color
 
 
@@ -106,21 +111,20 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
 
     displayBuffer = dict()
     # generate random lists
-    matrix_size = x*y
+    matrix_size = x * y
     Color_list = []
     Pixel_list = []
 
     for i in range(matrix_size):
         Pixel_list.append(i)
-        Color_list.append(color_dict[choice(COLOR_KEYS)]['hex'])
-    
+        Color_list.append(color_dict[choice(COLOR_KEYS)]["hex"])
 
     for _ in range(rounds):
         plist = Pixel_list.copy()
         colorCopy = Color_list.copy()
         while len(colorCopy) > 0:
             pixel = plist.pop()
-            pxl = tuple([int(pixel/8),pixel%8])
+            pxl = tuple([int(pixel / 8), pixel % 8])
             color = colorCopy.pop()
             SetBuffer(displayBuffer, pxl, color)
         UpdateDisplay(device, displayBuffer)
@@ -129,17 +133,16 @@ def UseLumaLEDMatrix(device, x, y, pace, rounds):
     return color
 
 
-
 def UseLumaLEDMatrixOLD(device, x, y, pace, rounds):
     if type(x) != list:
         x = list(range(x))
     if type(y) != list:
         y = list(range(y))
-    # create a list of color values for matrix initially 
-    baseColor = color_dict["air_force_blue_usaf"]['hex']
+    # create a list of color values for matrix initially
+    baseColor = color_dict["air_force_blue_usaf"]["hex"]
     matrix = [baseColor for i in range(len(x) * len(y))]
     field = [int(rounds) for i in range(len(x) * len(y))]
-    while sum(field) > -(rounds*100): # extend run time
+    while sum(field) > -(rounds * 100):  # extend run time
         with canvas(device) as draw:
             color = choice(COLOR_KEYS)
             pixel_x = choice(x)
@@ -147,17 +150,19 @@ def UseLumaLEDMatrixOLD(device, x, y, pace, rounds):
             pixel = pixel_x * 8 + pixel_y
             iters = field[pixel]
             field[pixel] = iters - 1
-            #senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
-            #color_tuple = tuple(color_dict[color]["rgb"])
+            # senseObj.set_pixel(pixel_x, pixel_y, color_dict[color]["rgb"])
+            # color_tuple = tuple(color_dict[color]["rgb"])
             matrix[pixel] = color_dict[color]["hex"]
             for px in x:
                 for py in y:
-                    draw.point((px, py), matrix[px*8+py])
+                    draw.point((px, py), matrix[px * 8 + py])
 
     return color
 
 
-def random_to_solid(senseObj, colorName="black", x=index, y=index, fast=False, flicker=True):
+def random_to_solid(
+    senseObj, colorName="black", x=index, y=index, fast=False, flicker=True
+):
     """flicker controls if display should animate during color unifomity process 
     """
     if colorName not in color_dict.keys():
@@ -175,8 +180,8 @@ def random_to_solid(senseObj, colorName="black", x=index, y=index, fast=False, f
                 for ndx in field:
                     x = int(ndx / 8)
                     y = int(ndx % 8)
-                    senseObj.set_pixel(x, y, color_dict[choice(COLOR_KEYS)]["rgb"])                                
-            sleep(len(field)/2*.01)
+                    senseObj.set_pixel(x, y, color_dict[choice(COLOR_KEYS)]["rgb"])
+            sleep(len(field) / 2 * 0.01)
     else:
         field = [1 for i in range(len(x) * len(y))]
         while sum(field) > 0:
@@ -190,7 +195,7 @@ def random_to_solid(senseObj, colorName="black", x=index, y=index, fast=False, f
     return True
 
 
-#@logger.catch
+# @logger.catch
 def DisplayMessage(senseObj, message, pause=1):
     """ Place a text string on the display of the SenseHat.
     Params: senseObj: required SenseHat Object, message: text string (required) 
@@ -206,7 +211,7 @@ def DisplayMessage(senseObj, message, pause=1):
 def Main(sense):
     last = Set_Random_Pixels(sense)
     random_to_solid(sense, colorName=last)
-    last = Set_Random_Pixels(sense, pace=.1)   
+    last = Set_Random_Pixels(sense, pace=0.1)
     random_to_solid(sense, fast=True)
     sense.low_light = True
     sense.clear(255, 255, 255)
