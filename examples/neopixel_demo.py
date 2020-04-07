@@ -43,6 +43,15 @@ for y in range(map_y):
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
 
+# random dots of color
+def glitter(x, y, step):
+    """ Take an xy position and return a random color for it
+    """
+    color = choice(COLOR_KEYS)
+    r, g, b = color_dict[color]["rgb"]
+    return (r, g, b)
+
+
 # twisty swirly goodness
 def swirl(x, y, step):
 
@@ -196,7 +205,7 @@ def set_bounds_limits(r, g, b):
 
 
 def gfx(device):
-    effects = [tunnel, rainbow_search, checker, swirl, blues_and_twos]
+    effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
     shuffle(effects)
     step = 0
     while True:
@@ -240,14 +249,14 @@ def main():
     time.sleep(0.1)
 
     # call the random pixel effect
-    result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+    #result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
         text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
-    time.sleep(1)
+    #time.sleep(1)
 
     # with canvas(device) as draw:
     #    rectangle(draw, device.bounding_box, outline="white", fill="black")
@@ -266,17 +275,17 @@ def main():
         draw.line([(0, 5), (device.width, 5)], fill="violet")
         draw.line([(0, 6), (device.width, 6)], fill="white")
 
-    time.sleep(2)
+    #time.sleep(2)
 
     print("Vary intensity from 0 - 32")
     for _ in range(9):
         for intensity in range(16):
             device.contrast(intensity * 2)
-            time.sleep(0.1)
+            #time.sleep(0.1)
 
     print("Set contrast to: 0x80")
     device.contrast(0x80)
-    time.sleep(1)
+    #time.sleep(1)
 
     print("scan lines across")
     xlist = list(range(device.width))
