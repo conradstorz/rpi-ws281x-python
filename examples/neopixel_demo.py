@@ -49,6 +49,7 @@ def glitter(x, y, step):
     """
     color = choice(COLOR_KEYS)
     r, g, b = color_dict[color]["rgb"]
+    time.sleep(0.00001)
     return (r, g, b)
 
 
@@ -226,7 +227,7 @@ def gfx(device):
 
             step += 1
 
-            time.sleep(0.005)
+            time.sleep(0.01)
 
         effect = effects.pop()
         effects.insert(0, effect)
