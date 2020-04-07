@@ -44,6 +44,16 @@ for y in range(map_y):
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
 
+# random dots of color
+def glitter(x, y, step):
+    """ Take an xy position and return a random color for it
+    """
+    color = choice(COLOR_KEYS)
+    r, g, b = color_dict[color]["rgb"]
+    time.sleep(0.00001)
+    return (r, g, b)
+
+
 # twisty swirly goodness
 def swirl(x, y, step):
 
@@ -218,14 +228,14 @@ def set_bounds_limits(r, g, b):
 
 
 def gfx(device):
-    effects = [tunnel, rainbow_search, checker, swirl, blues_and_twos]
+    effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
     shuffle(effects)
     step = 0
     while True:
-        print(effects[0])
+        print(f'Displaying effect: {effects[0]}')
         for i in range(500):
             if i == 400:
-                print("blending...")
+                print(f"blending with {effects[-1]}")
             with canvas(device) as draw:
                 for y in range(device.height):
                     for x in range(device.width):
@@ -251,6 +261,34 @@ def gfx(device):
 #       os.path.dirname(__file__), 'fonts', name))
 #   return ImageFont.truetype(font_path, size)
 
+def scan_up_down():
+    print("scan lines up/down")
+    ylist = list(range(device.height))
+    for y in range(10):  # repeat scan for multiple
+        ylist.reverse()
+        for y in ylist:  # scan the line through the list
+            rndcolor = choice(COLOR_KEYS)
+            clr = color_dict[rndcolor]["hex"]
+            with canvas(device) as draw:
+                draw.line([(0, y), (device.width, y)], fill=clr)
+            time.sleep(0.1)
+        time.sleep(0.1)
+    time.sleep(2)
+    return True
+
+def scan_across():
+    print("scan lines across")
+    xlist = list(range(device.width))
+    for x in range(3):  # repeat scan for multiple
+        xlist.reverse()
+        for x in xlist:  # scan the line through the list
+            rndcolor = choice(COLOR_KEYS)
+            clr = color_dict[rndcolor]["hex"]
+            with canvas(device) as draw:
+                draw.line([(x, 0), (x, device.height)], fill=clr)
+            time.sleep(0.1)
+        time.sleep(0.1)
+    time.sleep(2)
 
 def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
@@ -262,14 +300,14 @@ def main():
     time.sleep(0.1)
 
     # call the random pixel effect
-    UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+    #result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
         text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
-    time.sleep(1)
+    #time.sleep(1)
 
     # with canvas(device) as draw:
     #    rectangle(draw, device.bounding_box, outline="white", fill="black")
@@ -288,47 +326,26 @@ def main():
         draw.line([(0, 5), (device.width, 5)], fill="violet")
         draw.line([(0, 6), (device.width, 6)], fill="white")
 
-    time.sleep(2)
+    #time.sleep(2)
 
     print("Vary intensity from 0 - 32")
     for _ in range(9):
         for intensity in range(16):
             device.contrast(intensity * 2)
-            time.sleep(0.1)
+            #time.sleep(0.1)
 
     print("Set contrast to: 0x80")
     device.contrast(0x80)
-    time.sleep(1)
+    #time.sleep(1)
 
-    print("scan lines across")
-    xlist = list(range(device.width))
-    for x in range(3):  # repeat scan for multiple
-        xlist.reverse()
-        for x in xlist:  # scan the line through the list
-            rndcolor = choice(COLOR_KEYS)
-            clr = color_dict[rndcolor]["hex"]
-            with canvas(device) as draw:
-                draw.line([(x, 0), (x, device.height)], fill=clr)
-            time.sleep(0.1)
-        time.sleep(0.1)
-    time.sleep(2)
+    scan_across()
 
-    print("scan lines up/down")
-    ylist = list(range(device.height))
-    for y in range(10):  # repeat scan for multiple
-        ylist.reverse()
-        for y in ylist:  # scan the line through the list
-            rndcolor = choice(COLOR_KEYS)
-            clr = color_dict[rndcolor]["hex"]
-            with canvas(device) as draw:
-                draw.line([(0, y), (device.width, y)], fill=clr)
-            time.sleep(0.1)
-        time.sleep(0.1)
-    time.sleep(2)
+    scan_up_down()
 
     print("Set contrast to: 32")
     device.contrast(32)
-    time.sleep(1)
+    #time.sleep(1)
+
 
     print('Start "gfx" routine')
     gfx(device)
