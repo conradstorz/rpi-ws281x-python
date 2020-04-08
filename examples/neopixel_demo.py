@@ -215,8 +215,9 @@ def blend_into_next_effect(effects, point, incr, color):
     incr = current iteration
     color = tuple(r, g, b)
     """
-    r, g, b = color  # unpack tuple
-    r2, g2, b2 = effects[-1](point)
+    r, g, b = color  # unpack tuples
+    x, y, step = point
+    r2, g2, b2 = effects[-1](x, y, step)
 
     ratio = (500.00 - incr) / 100.0
     r = r * ratio + r2 * (1.0 - ratio)
