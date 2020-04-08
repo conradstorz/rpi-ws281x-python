@@ -189,7 +189,7 @@ def tunnel(x, y, step):
     return (col[0] * 255, col[1] * 255, col[2] * 255)
 
 
-DISPLAY_BUFFER = dict(dict())
+DISPLAY_BUFFER = dict()
 
 
 def update_display_buffer(point, color):
@@ -198,7 +198,12 @@ def update_display_buffer(point, color):
     point = tuple(x,y)
     color = tuple(r,g,b)
     """
-    DISPLAY_BUFFER[point[0]][point[1]] = color
+    x,y = point
+    if x not in DISPLAY_BUFFER:
+        DISPLAY_BUFFER[x] = dict()
+    if y not in DISPLAY_BUFFER[x]:
+        DISPLAY_BUFFER[x][y] = color
+    DISPLAY_BUFFER[x][y] = color
     return True
 
 
