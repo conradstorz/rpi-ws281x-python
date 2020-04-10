@@ -245,8 +245,8 @@ def gfx(device):
     step = 0
     while True:
         print(f"Displaying effect: {effects[0]}")
-        for i in tqdm(range(500)):
-            if i == 400:
+        for i in tqdm(range(50)):
+            if i == 40:
                 print(f"blending with {effects[-1]}")
             with canvas(device) as draw:
                 for y in range(device.height):
