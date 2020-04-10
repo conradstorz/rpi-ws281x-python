@@ -236,7 +236,7 @@ def set_bounds_limits(r, g, b):
     b = int(max(0, min(255, b)))
     return (r, g, b)
 
-FRAMERATE = 0.041666666  # approx 24 frames/second
+FRAMERATE = 0.083333333  # approx 12 frames/second
 
 def gfx(device):
     effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
