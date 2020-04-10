@@ -47,7 +47,7 @@ local_color_keys = COLOR_KEYS.copy()
 shuffle(local_color_keys)
 
 # random dots of color
-def glitter(x, y, step):
+def glitter(_x, _y, _step):
     """ Take an xy position and return a random color for it
     """
     color = local_color_keys.pop()
@@ -200,7 +200,7 @@ def update_display_buffer(point, color):
     point = tuple(x,y)
     color = tuple(r,g,b)
     """
-    x,y = point
+    x, y = point
     if x not in DISPLAY_BUFFER:
         DISPLAY_BUFFER[x] = dict()
     if y not in DISPLAY_BUFFER[x]:
@@ -240,7 +240,7 @@ def gfx(device):
     shuffle(effects)
     step = 0
     while True:
-        print(f'Displaying effect: {effects[0]}')
+        print(f"Displaying effect: {effects[0]}")
         for i in range(500):
             if i == 400:
                 print(f"blending with {effects[-1]}")
@@ -269,6 +269,7 @@ def gfx(device):
 #       os.path.dirname(__file__), 'fonts', name))
 #   return ImageFont.truetype(font_path, size)
 
+
 def scan_up_down():
     print("scan lines up/down")
     ylist = list(range(device.height))
@@ -284,6 +285,7 @@ def scan_up_down():
     time.sleep(2)
     return True
 
+
 def scan_across():
     print("scan lines across")
     xlist = list(range(device.width))
@@ -298,6 +300,7 @@ def scan_across():
         time.sleep(0.1)
     time.sleep(2)
 
+
 def main():
     msg = "Neopixel WS2812 LED Matrix Demo"
     print(msg)
@@ -308,14 +311,14 @@ def main():
     time.sleep(0.1)
 
     # call the random pixel effect
-    #result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
+    # result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
         text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
-    #time.sleep(1)
+    # time.sleep(1)
 
     # with canvas(device) as draw:
     #    rectangle(draw, device.bounding_box, outline="white", fill="black")
@@ -334,17 +337,17 @@ def main():
         draw.line([(0, 5), (device.width, 5)], fill="violet")
         draw.line([(0, 6), (device.width, 6)], fill="white")
 
-    #time.sleep(2)
+    # time.sleep(2)
 
     print("Vary intensity from 0 - 32")
     for _ in range(9):
         for intensity in range(16):
             device.contrast(intensity * 2)
-            #time.sleep(0.1)
+            # time.sleep(0.1)
 
     print("Set contrast to: 0x80")
     device.contrast(0x80)
-    #time.sleep(1)
+    # time.sleep(1)
 
     scan_across()
 
@@ -352,8 +355,7 @@ def main():
 
     print("Set contrast to: 32")
     device.contrast(32)
-    #time.sleep(1)
-
+    # time.sleep(1)
 
     print('Start "gfx" routine')
     gfx(device)
