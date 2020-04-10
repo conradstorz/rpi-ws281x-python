@@ -48,13 +48,13 @@ local_color_keys = COLOR_KEYS.copy()
 shuffle(local_color_keys)
 
 # random dots of color
-def glitter(_x, _y, step):
+def glitter(_x, _y, _step):
     """ Take an xy position and return a random color for it
     """
     color = local_color_keys.pop()
     r, g, b = color_dict[color]["rgb"]
     local_color_keys.insert(0, color)
-    time.sleep(step/10000000)
+    #time.sleep(step/10000000)
     return (r, g, b)
 
 
