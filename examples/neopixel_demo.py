@@ -43,12 +43,14 @@ for y in range(map_y):
 # create matrix device
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
+local_color_keys = COLOR_KEYS.copy()
+shuffle(local_color_keys)
 
 # random dots of color
 def glitter(x, y, step):
     """ Take an xy position and return a random color for it
     """
-    color = choice(COLOR_KEYS)
+    color = local_color_keys.pop()
     r, g, b = color_dict[color]["rgb"]
     time.sleep(0.00001)
     return (r, g, b)
