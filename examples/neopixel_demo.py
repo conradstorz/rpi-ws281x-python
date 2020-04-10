@@ -52,7 +52,8 @@ def glitter(_x, _y, _step):
     """
     color = local_color_keys.pop()
     r, g, b = color_dict[color]["rgb"]
-    time.sleep(0.00001)
+    local_color_keys.insert(0, color)
+    time.sleep(step/10000)
     return (r, g, b)
 
 
