@@ -238,6 +238,8 @@ def set_bounds_limits(r, g, b):
 
 
 FRAMERATE = 0.166666666
+EFFECT_ITERATIONS = 50
+BLEND_POINT = 40
 
 def gfx(device):
     effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
@@ -245,14 +247,14 @@ def gfx(device):
     step = 0
     while True:
         print(f"Displaying effect: {effects[0]}")
-        for i in tqdm(range(50)):
-            if i == 40:
+        for i in tqdm(range(EFFECT_ITERATIONS)):
+            if i == BLEND_POINT:
                 print(f"blending with {effects[-1]}")
             with canvas(device) as draw:
                 for y in range(device.height):
                     for x in range(device.width):
                         r, g, b = effects[0](x, y, step)
-                        if i > 400:
+                        if i > BLEND_POINT:
                             r, g, b = blend_into_next_effect(
                                 effects, (x, y, step), i, (r, g, b)
                             )
