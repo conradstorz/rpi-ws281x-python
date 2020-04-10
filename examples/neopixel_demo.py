@@ -260,7 +260,7 @@ def gfx(device):
                         update_display_buffer((x, y), (r, g, b))
             step += 1
             # re-adjust delay to maintain framerate across different effects
-            time.sleep(FRAMERATE - (time.time() % FRAMERATE)
+            time.sleep(FRAMERATE - (time.time() % FRAMERATE))
 
         effect = effects.pop()
         effects.insert(0, effect)
