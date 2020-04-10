@@ -19,6 +19,7 @@ from luma.core.legacy.font import TINY_FONT
 from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
 from random import choice, shuffle
 
+from tqdm import tqdm
 xsize = 32
 ysize = 8
 
@@ -53,7 +54,7 @@ def glitter(_x, _y, step):
     color = local_color_keys.pop()
     r, g, b = color_dict[color]["rgb"]
     local_color_keys.insert(0, color)
-    time.sleep(step/1000000)
+    time.sleep(step/10000000)
     return (r, g, b)
 
 
@@ -242,7 +243,7 @@ def gfx(device):
     step = 0
     while True:
         print(f"Displaying effect: {effects[0]}")
-        for i in range(500):
+        for i in tqdm(range(500)):
             if i == 400:
                 print(f"blending with {effects[-1]}")
             with canvas(device) as draw:
