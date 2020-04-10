@@ -308,7 +308,7 @@ def scan_across():
 
 
 def main():
-    msg = "Neopixel WS2812 LED Matrix Demo"
+    msg = "NEOPIXEL WS2812 LED MATRIX DEMO"
     print(msg)
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
