@@ -321,8 +321,8 @@ def main():
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
-        text(draw, (0, -1), txt="A", fill="red", font=SINCLAIR_FONT)
-        text(draw, (8, -1), txt="T", fill="green", font=TINY_FONT)
+        text(draw, (0, -1), txt="All the little things", fill="red", font=SINCLAIR_FONT)
+        #text(draw, (8, -1), txt="T", fill="green", font=TINY_FONT)
 
     time.sleep(1)
 
