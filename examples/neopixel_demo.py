@@ -238,8 +238,8 @@ def set_bounds_limits(r, g, b):
 
 
 FRAMERATE = 0.166666666
-EFFECT_ITERATIONS = 50
-BLEND_POINT = 40
+EFFECT_ITERATIONS = 500
+BLEND_POINT = 400
 
 def gfx(device):
     effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
@@ -322,7 +322,7 @@ def main():
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
         text(draw, (0, -1), txt="A", fill="red", font=SINCLAIR_FONT)
-        text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
+        text(draw, (8, -1), txt="T", fill="green", font=TINY_FONT)
 
     time.sleep(1)
 
