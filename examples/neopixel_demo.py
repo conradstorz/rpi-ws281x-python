@@ -236,6 +236,7 @@ def set_bounds_limits(r, g, b):
     b = int(max(0, min(255, b)))
     return (r, g, b)
 
+FRAMERATE = 0.041666666  # approx 24 frames/second
 
 def gfx(device):
     effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
@@ -258,8 +259,8 @@ def gfx(device):
                         draw.point((x, y), (r, g, b))
                         update_display_buffer((x, y), (r, g, b))
             step += 1
-
-            time.sleep(0.01)
+            # re-adjust delay to maintain framerate across different effects
+            time.sleep(FRAMERATE - (time.time() % FRAMERATE)
 
         effect = effects.pop()
         effects.insert(0, effect)
