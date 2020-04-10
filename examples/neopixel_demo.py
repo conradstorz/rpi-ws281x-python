@@ -13,7 +13,7 @@ import colorsys
 from luma.led_matrix.device import neopixel
 from luma.core.render import canvas
 from luma.core.legacy import text, show_message
-from luma.core.legacy.font import TINY_FONT
+from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 
 # from PIL import ImageFont
 from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
@@ -313,7 +313,7 @@ def main():
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=TINY_FONT, scroll_delay=0.09)
+    show_message(device, msg, y_offset=-1, fill=clr, scroll_delay=0.05)
     time.sleep(0.1)
 
     # call the random pixel effect
@@ -321,10 +321,10 @@ def main():
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
-        text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
+        text(draw, (0, -1), txt="A", fill="red", font=SINCLAIR_FONT)
         text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
 
-    # time.sleep(1)
+    time.sleep(1)
 
     # with canvas(device) as draw:
     #    rectangle(draw, device.bounding_box, outline="white", fill="black")
