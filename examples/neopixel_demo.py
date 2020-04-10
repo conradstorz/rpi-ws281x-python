@@ -47,7 +47,7 @@ local_color_keys = COLOR_KEYS.copy()
 shuffle(local_color_keys)
 
 # random dots of color
-def glitter(_x, _y, _step):
+def glitter(_x, _y, step):
     """ Take an xy position and return a random color for it
     """
     color = local_color_keys.pop()
