@@ -313,7 +313,7 @@ def main():
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=TINY_FONT)
+    show_message(device, msg, y_offset=-1, fill=clr, font=TINY_FONT, scroll_delay=0.09)
     time.sleep(0.1)
 
     # call the random pixel effect
