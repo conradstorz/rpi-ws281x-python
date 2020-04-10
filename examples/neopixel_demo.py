@@ -237,7 +237,7 @@ def set_bounds_limits(r, g, b):
     return (r, g, b)
 
 
-FRAMERATE = 0.333333333
+FRAMERATE = 0.166666666
 
 def gfx(device):
     effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
