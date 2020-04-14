@@ -52,7 +52,7 @@ def glitter(_x, _y, step):
     """ Take an xy position and return a random color for it
     """
     if step % 5 != 0: # drop a color from the list periodically    
-        if x + y = 0: # only do it once per step
+        if x + y == 0: # only do it once per step
             color = local_color_keys.pop()
     color = local_color_keys.pop()    
     r, g, b = color_dict[color]["rgb"]
