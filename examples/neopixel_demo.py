@@ -53,7 +53,7 @@ def glitter(_x, _y, step):
     """
     color = local_color_keys.pop()
     r, g, b = color_dict[color]["rgb"]
-    if step % 5 != 0: # drop the color from the list periodically
+    if step % 50 != 0: # drop the color from the list periodically
         local_color_keys.insert(0, color)
     #time.sleep(step/10000000)
     return (r, g, b)
@@ -243,7 +243,7 @@ EFFECT_ITERATIONS = 500
 BLEND_POINT = 400
 
 def gfx(device):
-    effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
+    effects = [glitter, tunnel] # , rainbow_search, checker, swirl, blues_and_twos
     shuffle(effects)
     step = 0
     while True:
