@@ -51,7 +51,7 @@ shuffle(local_color_keys)
 def glitter(_x, _y, step):
     """ Take an xy position and return a random color for it
     """
-    if step % 1 != 0: # drop a color from the list periodically    
+    if step % 1 == 0: # drop a color from the list periodically    
         if x + y == 0: # only do it once per step
             print(len(local_color_keys))
             color = local_color_keys.pop()
