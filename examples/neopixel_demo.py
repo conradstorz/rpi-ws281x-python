@@ -48,17 +48,17 @@ local_color_keys = COLOR_KEYS.copy()
 shuffle(local_color_keys)
 
 # random dots of color
-def glitter(x, y, _step):
+def glitter(_x, _y, _step):
     """ Take an xy position and return a random color for it
+
+        # drop a color from the list periodically    
+        if x + y == 0: # only do it once per frame
+            print(len(local_color_keys))
+            color = local_color_keys.pop()
     """
-    # drop a color from the list periodically    
-    if x + y == 0: # only do it once per frame
-        print(len(local_color_keys))
-        color = local_color_keys.pop()
     color = local_color_keys.pop()    
     r, g, b = color_dict[color]["rgb"]
     local_color_keys.insert(0, color)
-    #time.sleep(step/10000000)
     return (r, g, b)
 
 
@@ -240,13 +240,18 @@ def set_bounds_limits(r, g, b):
     b = int(max(0, min(255, b)))
     return (r, g, b)
 
+SIX_FRAMES_SEC = 0.166666666
+EIGHT_FRAMES_SEC = 0.125
+x24_FRAMES_SEC = 0.041666666
+x60_FRAMES_SEC = 0.016666666
+UNLIMTED_FRAMES_SEC = 0.0
 
-FRAMERATE = 0.166666666
+FRAMERATE = UNLIMTED_FRAMES_SEC
 EFFECT_ITERATIONS = 500
 BLEND_POINT = 400
 
 def gfx(device):
-    effects = [glitter] # , tunnel, rainbow_search, checker, swirl, blues_and_twos
+    effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
     shuffle(effects)
     step = 0
     while True:
