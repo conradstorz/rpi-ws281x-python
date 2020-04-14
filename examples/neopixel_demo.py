@@ -51,8 +51,9 @@ shuffle(local_color_keys)
 def glitter(_x, _y, step):
     """ Take an xy position and return a random color for it
     """
-    if step % 3 != 0: # drop a color from the list periodically    
+    if step % 1 != 0: # drop a color from the list periodically    
         if x + y == 0: # only do it once per step
+            print(len(local_color_keys))
             color = local_color_keys.pop()
     color = local_color_keys.pop()    
     r, g, b = color_dict[color]["rgb"]
@@ -291,7 +292,6 @@ def scan_up_down():
                 draw.line([(0, y), (device.width, y)], fill=clr)
             time.sleep(0.1)
         time.sleep(0.1)
-    time.sleep(2)
     return True
 
 
@@ -307,7 +307,7 @@ def scan_across():
                 draw.line([(x, 0), (x, device.height)], fill=clr)
             time.sleep(0.1)
         time.sleep(0.1)
-    time.sleep(2)
+    return True
 
 
 def main():
