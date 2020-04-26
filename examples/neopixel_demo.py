@@ -13,12 +13,13 @@ import colorsys
 from luma.led_matrix.device import neopixel
 from luma.core.render import canvas
 from luma.core.legacy import text, show_message
-from luma.core.legacy.font import TINY_FONT
+from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 
 # from PIL import ImageFont
 from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
 from random import choice, shuffle
 
+from tqdm import tqdm
 xsize = 32
 ysize = 8
 
@@ -43,18 +44,28 @@ for y in range(map_y):
 # create matrix device
 device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
+local_color_keys = COLOR_KEYS.copy()
+shuffle(local_color_keys)
 
 # random dots of color
 def glitter(_x, _y, _step, depth=0):
     """ Take an xy position and return a random color for it
+
     TODO reduce the number of colors to change the effect
     example: new parameter: depth = 1 to len(COLOR_KEYS)
     if depth = 0: depth = len(COLOR_KEYS)
     CK = subset(COLOR_KEYS, depth) 
+
+
+        # drop a color from the list periodically    
+        if x + y == 0: # only do it once per frame
+            print(len(local_color_keys))
+            color = local_color_keys.pop()
+
     """
-    color = choice(COLOR_KEYS)
+    color = local_color_keys.pop()    
     r, g, b = color_dict[color]["rgb"]
-    time.sleep(0.00001)
+    local_color_keys.insert(0, color)
     return (r, g, b)
 
 
@@ -236,6 +247,16 @@ def set_bounds_limits(r, g, b):
     b = int(max(0, min(255, b)))
     return (r, g, b)
 
+SIX_FRAMES_SEC = 0.166666666
+EIGHT_FRAMES_SEC = 0.125
+TEN_FRAMES_SEC = 0.1
+x24_FRAMES_SEC = 0.041666666
+x60_FRAMES_SEC = 0.016666666
+UNLIMTED_FRAMES_SEC = 0.000000001
+
+FRAMERATE = UNLIMTED_FRAMES_SEC
+EFFECT_ITERATIONS = 500
+BLEND_POINT = 400
 
 def gfx(device):
     effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
@@ -243,14 +264,14 @@ def gfx(device):
     step = 0
     while True:
         print(f"Displaying effect: {effects[0]}")
-        for i in range(500):
-            if i == 400:
+        for i in tqdm(range(EFFECT_ITERATIONS)):
+            if i == BLEND_POINT:
                 print(f"blending with {effects[-1]}")
             with canvas(device) as draw:
                 for y in range(device.height):
                     for x in range(device.width):
                         r, g, b = effects[0](x, y, step)
-                        if i > 400:
+                        if i > BLEND_POINT:
                             r, g, b = blend_into_next_effect(
                                 effects, (x, y, step), i, (r, g, b)
                             )
@@ -258,8 +279,8 @@ def gfx(device):
                         draw.point((x, y), (r, g, b))
                         update_display_buffer((x, y), (r, g, b))
             step += 1
-
-            time.sleep(0.01)
+            # re-adjust delay to maintain framerate across different effects
+            time.sleep(FRAMERATE - (time.time() % FRAMERATE))
 
         effect = effects.pop()
         effects.insert(0, effect)
@@ -284,7 +305,6 @@ def scan_up_down():
                 draw.line([(0, y), (device.width, y)], fill=clr)
             time.sleep(0.1)
         time.sleep(0.1)
-    time.sleep(2)
     return True
 
 
@@ -300,16 +320,16 @@ def scan_across():
                 draw.line([(x, 0), (x, device.height)], fill=clr)
             time.sleep(0.1)
         time.sleep(0.1)
-    time.sleep(2)
+    return True
 
 
 def main():
-    msg = "Neopixel WS2812 LED Matrix Demo"
+    msg = "NEOPIXEL WS2812 LED MATRIX DEMO"
     print(msg)
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=TINY_FONT)
+    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=0.05)
     time.sleep(0.1)
 
     # call the random pixel effect
@@ -317,10 +337,10 @@ def main():
 
     print('Draw text "A" and "T"')
     with canvas(device) as draw:
-        text(draw, (0, -1), txt="A", fill="red", font=TINY_FONT)
-        text(draw, (4, -1), txt="T", fill="green", font=TINY_FONT)
+        text(draw, (0, -1), txt="All the little things", fill="red", font=SINCLAIR_FONT)
+        #text(draw, (8, -1), txt="T", fill="green", font=TINY_FONT)
 
-    # time.sleep(1)
+    time.sleep(1)
 
     # with canvas(device) as draw:
     #    rectangle(draw, device.bounding_box, outline="white", fill="black")
