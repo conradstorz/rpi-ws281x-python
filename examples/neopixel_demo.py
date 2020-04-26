@@ -17,6 +17,8 @@ from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 
 from PIL import ImageFont
 
+# ARIAL_FONT = ImageFont.truetype("arial")
+
 from random_colors import color_dict, COLOR_KEYS
 from random import choice, shuffle
 
@@ -266,7 +268,6 @@ def scan_across():
     return True
 
 
-ARIAL_FONT = ImageFont.truetype("arial")
 
 
 def display_scroll_text(msg, speed=0.1):
@@ -276,7 +277,7 @@ def display_scroll_text(msg, speed=0.1):
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=ARIAL_FONT, scroll_delay=speed)
+    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=speed)
 
 
 
