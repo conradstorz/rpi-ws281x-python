@@ -323,24 +323,28 @@ def scan_across():
     return True
 
 
-def main():
-    msg = "NEOPIXEL WS2812 LED MATRIX DEMO"
+def display_scroll_text(msg, speed=0.1):
+    """Place msg onto LED mtrix in a scroll
+    """
     print(msg)
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=0.05)
-    time.sleep(0.1)
+    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=speed)
 
-    # call the random pixel effect
-    # result = UseLumaLEDMatrix(device, xsize, ysize, 1, 100)
 
-    print('Draw text "A" and "T"')
+
+def main():
+    display_scroll_text("NEOPIXEL WS2812 LED MATRIX DEMO", speed=0.05)
+    time.sleep(0.5)
+
+    print('Draw text "R" "G" and "B"')
     with canvas(device) as draw:
-        text(draw, (0, -1), txt="All the little things", fill="red", font=SINCLAIR_FONT)
-        #text(draw, (8, -1), txt="T", fill="green", font=TINY_FONT)
+        text(draw, (0, -1), txt="R", fill="red", font=SINCLAIR_FONT)
+        text(draw, (8, -1), txt="G", fill="green", font=TINY_FONT)
+        text(draw, (16, -1), txt="B", fill="blue", font=SINCLAIR_FONT)
 
-    time.sleep(1)
+    time.sleep(3)
 
     # with canvas(device) as draw:
     #    rectangle(draw, device.bounding_box, outline="white", fill="black")
