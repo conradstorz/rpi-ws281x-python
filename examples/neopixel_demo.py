@@ -45,8 +45,12 @@ device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
 
 
 # random dots of color
-def glitter(_x, _y, _step):
+def glitter(_x, _y, _step, depth=0):
     """ Take an xy position and return a random color for it
+    TODO reduce the number of colors to change the effect
+    example: new parameter: depth = 1 to len(COLOR_KEYS)
+    if depth = 0: depth = len(COLOR_KEYS)
+    CK = subset(COLOR_KEYS, depth) 
     """
     color = choice(COLOR_KEYS)
     r, g, b = color_dict[color]["rgb"]
