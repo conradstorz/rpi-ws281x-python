@@ -79,14 +79,8 @@ def checkerboard(x, y, step):
     x -= device.width / 2
     y -= device.height / 2
     angle = step / 10.0
-    sa = math.sin(angle)
-    ca = math.cos(angle)
-    xs = x * ca - y * sa
-    ys = x * sa + y * ca
-    xs -= math.sin(step / 200.0) * 40.0
-    ys -= math.cos(step / 200.0) * 40.0
-    scale = step % 20
-    scale /= 20
+    xs = (x * math.cos(angle) - y * math.sin(angle)) - math.sin(step / 200.0) * 40.0
+    ys = (x * math.sin(angle) + y * math.cos(angle)) - math.cos(step / 200.0) * 40.0
     scale = (math.sin(step / 50.0) / 8.0) + 0.25
     xs *= scale
     ys *= scale
