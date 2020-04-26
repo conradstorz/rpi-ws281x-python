@@ -353,17 +353,12 @@ def main():
     time.sleep(0)
 
     print("Draw lines in the rainbow")
+    color = ['red', 'orange','yellow', 'green', 'blue', 'indigo', 'violet', 'white']
     device.contrast(8)
     with canvas(device) as draw:
-        draw.line([(0, 0), (device.width, 0)], fill="red")
-        draw.line([(0, 1), (device.width, 1)], fill="orange")
-        draw.line([(0, 2), (device.width, 2)], fill="yellow")
-        draw.line([(0, 3), (device.width, 3)], fill="green")
-        draw.line([(0, 4), (device.width, 4)], fill="blue")
-        draw.line([(0, 5), (device.width, 5)], fill="indigo")
-        draw.line([(0, 6), (device.width, 6)], fill="violet")
-        draw.line([(0, 7), (device.width, 7)], fill="white")
-    # time.sleep(2)
+        for line in range(8):
+            draw.line([(0, line), (device.width, line)], fill=color[line])
+    time.sleep(2)
 
     print("Vary intensity from 0 - 32")
     for _ in range(9):
