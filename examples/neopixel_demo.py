@@ -356,13 +356,13 @@ def main():
     device.contrast(8)
     with canvas(device) as draw:
         draw.line([(0, 0), (device.width, 0)], fill="red")
-        draw.line([(0, 1), (device.width, 1)], fill="yellow")
-        draw.line([(0, 2), (device.width, 2)], fill="green")
-        draw.line([(0, 3), (device.width, 3)], fill="blue")
-        draw.line([(0, 4), (device.width, 4)], fill="indigo")
-        draw.line([(0, 5), (device.width, 5)], fill="violet")
-        draw.line([(0, 6), (device.width, 6)], fill="white")
-
+        draw.line([(0, 1), (device.width, 1)], fill="orange")
+        draw.line([(0, 2), (device.width, 2)], fill="yellow")
+        draw.line([(0, 3), (device.width, 3)], fill="green")
+        draw.line([(0, 4), (device.width, 4)], fill="blue")
+        draw.line([(0, 5), (device.width, 5)], fill="indigo")
+        draw.line([(0, 6), (device.width, 6)], fill="violet")
+        draw.line([(0, 7), (device.width, 7)], fill="white")
     # time.sleep(2)
 
     print("Vary intensity from 0 - 32")
