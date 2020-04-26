@@ -15,7 +15,8 @@ from luma.core.render import canvas
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 
-# from PIL import ImageFont
+from PIL import ImageFont
+
 from random_colors import color_dict, COLOR_KEYS
 from random import choice, shuffle
 
@@ -94,36 +95,26 @@ def checkerboard(x, y, step):
 
 # weeee waaaah
 def blues_and_twos(x, y, step):
-
     x -= device.width / 2
     y -= device.height / 2
-
-    #    xs = (math.sin((x + step) / 10.0) / 2.0) + 1.0
-    #    ys = (math.cos((y + step) / 10.0) / 2.0) + 1.0
-
     scale = math.sin(step / 6.0) / 1.5
     r = math.sin((x * scale) / 1.0) + math.cos((y * scale) / 1.0)
     b = math.sin(x * scale / 2.0) + math.cos(y * scale / 2.0)
     g = r - 0.8
     g = 0 if g < 0 else g
-
     b -= r
     b /= 1.4
-
     return (r * 255, (b + g) * 255, g * 255)
 
 
 # rainbow search spotlights
 def rainbow_search(x, y, step):
-
     xs = math.sin((step) / 100.0) * 20.0
     ys = math.cos((step) / 100.0) * 20.0
-
     scale = ((math.sin(step / 60.0) + 1.0) / 5.0) + 0.2
     r = math.sin((x + xs) * scale) + math.cos((y + xs) * scale)
     g = math.sin((x + xs) * scale) + math.cos((y + ys) * scale)
     b = math.sin((x + ys) * scale) + math.cos((y + ys) * scale)
-
     return (r * 255, g * 255, b * 255)
 
 
@@ -132,10 +123,8 @@ def tunnel(x, y, step):
     speed = step / 100.0
     x -= device.width / 2
     y -= device.height / 2
-    xo = math.sin(step / 27.0) * 2
-    yo = math.cos(step / 18.0) * 2
-    x += xo
-    y += yo
+    x += math.sin(step / 27.0) * 2
+    y += math.cos(step / 18.0) * 2
     if y == 0:
         if x < 0:
             angle = -(math.pi / 2)
@@ -235,7 +224,7 @@ def gfx(device):
             step += 1
             # re-adjust delay to maintain framerate across different effects
             time.sleep(FRAMERATE - (time.time() % FRAMERATE))
-
+        # rotate the queue of effects
         effect = effects.pop()
         effects.insert(0, effect)
     return True
@@ -277,6 +266,9 @@ def scan_across():
     return True
 
 
+ARIAL_FONT = ImageFont.truetype("arial")
+
+
 def display_scroll_text(msg, speed=0.1):
     """Place msg onto LED mtrix in a scroll
     """
@@ -284,7 +276,7 @@ def display_scroll_text(msg, speed=0.1):
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=speed)
+    show_message(device, msg, y_offset=-1, fill=clr, font=ARIAL_FONT, scroll_delay=speed)
 
 
 
