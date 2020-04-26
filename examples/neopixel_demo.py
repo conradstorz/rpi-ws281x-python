@@ -227,8 +227,11 @@ def gfx(device):
             # re-adjust delay to maintain framerate across different effects
             time.sleep(FRAMERATE - (time.time() % FRAMERATE))
         # rotate the queue of effects
+        """
         effect = effects.pop()
         effects.insert(0, effect)
+        """
+        shuffle(effects)
     return True
 
 
