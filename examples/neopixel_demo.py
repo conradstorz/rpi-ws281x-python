@@ -16,39 +16,23 @@ from luma.core.legacy import text, show_message
 from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 
 # from PIL import ImageFont
-from random_colors import UseLumaLEDMatrix, color_dict, COLOR_KEYS
+from random_colors import color_dict, COLOR_KEYS
 from random import choice, shuffle
 
 from tqdm import tqdm
-xsize = 32
-ysize = 8
 
-# build a pixel mapping for BTF matrix device
-MAP_BTF = []
-tmp_BTF = []
-map_x = xsize
-map_y = ysize
-xlist = list(range(map_x))
+from BTF32x8_matrix_device import MAP_BTF32x8, BTF_XSIZE, BTF_YSIZE
 
-for x in xlist:
-    ylist = list(range(x * map_y, x * map_y + map_y))
-    if x % 2 == 1:  # invert list to account for serpentine layout
-        ylist.reverse()
-    tmp_BTF.append(ylist)
-
-for y in range(map_y):
-    for l in tmp_BTF:
-        MAP_BTF.append(l[y])
 
 
 # create matrix device
-device = neopixel(width=xsize, height=ysize, mapping=MAP_BTF, rotate=0)
+device = neopixel(width=BTF_XSIZE, height=BTF_YSIZE, mapping=MAP_BTF32x8, rotate=0)
 
-local_color_keys = COLOR_KEYS.copy()
-shuffle(local_color_keys)
+LOCAL_COLOR_KEYS = COLOR_KEYS.copy()
+shuffle(LOCAL_COLOR_KEYS)
 
 # random dots of color
-def glitter(_x, _y, _step, depth=0):
+def glitter(_x, _y, _step, _depth=0):
     """ Take an xy position and return a random color for it
 
     TODO reduce the number of colors to change the effect
@@ -59,13 +43,13 @@ def glitter(_x, _y, _step, depth=0):
 
         # drop a color from the list periodically    
         if x + y == 0: # only do it once per frame
-            print(len(local_color_keys))
-            color = local_color_keys.pop()
+            print(len(LOCAL_COLOR_KEYS))
+            color = LOCAL_COLOR_KEYS.pop()
 
     """
-    color = local_color_keys.pop()    
+    color = LOCAL_COLOR_KEYS.pop()    
     r, g, b = color_dict[color]["rgb"]
-    local_color_keys.insert(0, color)
+    LOCAL_COLOR_KEYS.insert(0, color)
     return (r, g, b)
 
 
@@ -91,35 +75,26 @@ def swirl(x, y, step):
 
 
 # roto-zooming checker board
-def checker(x, y, step):
-
+def checkerboard(x, y, step):
     x -= device.width / 2
     y -= device.height / 2
-
     angle = step / 10.0
     sa = math.sin(angle)
     ca = math.cos(angle)
-
     xs = x * ca - y * sa
     ys = x * sa + y * ca
-
     xs -= math.sin(step / 200.0) * 40.0
     ys -= math.cos(step / 200.0) * 40.0
-
     scale = step % 20
     scale /= 20
     scale = (math.sin(step / 50.0) / 8.0) + 0.25
-
     xs *= scale
     ys *= scale
-
     xo = abs(xs) - int(abs(xs))
     yo = abs(ys) - int(abs(ys))
     xyfloor = math.floor(xs) + math.floor(ys)
     lightness = 0 if xyfloor % 2 else 1 if xo > 0.1 and yo > 0.1 else 0.5
-
     r, g, b = colorsys.hsv_to_rgb((step % 255) / 255.0, 1, lightness)
-
     return (r * 255, g * 255, b * 255)
 
 
@@ -160,17 +135,13 @@ def rainbow_search(x, y, step):
 
 # zoom tunnel
 def tunnel(x, y, step):
-
     speed = step / 100.0
     x -= device.width / 2
     y -= device.height / 2
-
     xo = math.sin(step / 27.0) * 2
     yo = math.cos(step / 18.0) * 2
-
     x += xo
     y += yo
-
     if y == 0:
         if x < 0:
             angle = -(math.pi / 2)
@@ -178,29 +149,19 @@ def tunnel(x, y, step):
             angle = math.pi / 2
     else:
         angle = math.atan(x / y)
-
     if y > 0:
         angle += math.pi
-
     angle /= 2 * math.pi  # convert angle to 0...1 range
-
     shade = math.sqrt(math.pow(x, 2) + math.pow(y, 2)) / 2.1
     shade = 1 if shade > 1 else shade
-
     angle += speed
     depth = speed + (math.sqrt(math.pow(x, 2) + math.pow(y, 2)) / 10)
-
     col1 = colorsys.hsv_to_rgb((step % 255) / 255.0, 1, 0.8)
     col2 = colorsys.hsv_to_rgb((step % 255) / 255.0, 1, 0.3)
-
     col = col1 if int(abs(angle * 6.0)) % 2 == 0 else col2
-
     td = 0.3 if int(abs(depth * 3.0)) % 2 == 0 else 0
-
     col = (col[0] + td, col[1] + td, col[2] + td)
-
     col = (col[0] * shade, col[1] * shade, col[2] * shade)
-
     return (col[0] * 255, col[1] * 255, col[2] * 255)
 
 
@@ -209,7 +170,6 @@ DISPLAY_BUFFER = dict()
 
 def update_display_buffer(point, color):
     """Keep record of all display points.
-
     point = tuple(x,y)
     color = tuple(r,g,b)
     """
@@ -224,7 +184,6 @@ def update_display_buffer(point, color):
 
 def blend_into_next_effect(effects, point, incr, color):
     """Blend together 2 function results.
-
     effects = list of function pointers
     point = tuple(x, y, step)
     incr = current iteration
@@ -247,6 +206,7 @@ def set_bounds_limits(r, g, b):
     b = int(max(0, min(255, b)))
     return (r, g, b)
 
+
 SIX_FRAMES_SEC = 0.166666666
 EIGHT_FRAMES_SEC = 0.125
 TEN_FRAMES_SEC = 0.1
@@ -259,7 +219,7 @@ EFFECT_ITERATIONS = 500
 BLEND_POINT = 400
 
 def gfx(device):
-    effects = [glitter, tunnel, rainbow_search, checker, swirl, blues_and_twos]
+    effects = [glitter, tunnel, rainbow_search, checkerboard, swirl, blues_and_twos]
     shuffle(effects)
     step = 0
     while True:
