@@ -18,6 +18,7 @@ from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 from PIL import ImageFont
 
 # ARIAL_FONT = ImageFont.truetype("arial")
+ARIAL_FONT = ImageFont.load("arial.pil")
 
 from random_colors import color_dict, COLOR_KEYS
 from random import choice, shuffle
