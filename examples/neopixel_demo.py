@@ -16,7 +16,21 @@ from luma.core.legacy import text, show_message
 from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 
 from PIL import ImageFont
+"""https://pillow.readthedocs.io/en/stable/reference/ImageFont.html
+from PIL import ImageFont, ImageDraw
 
+draw = ImageDraw.Draw(image)
+
+# use a bitmap font
+font = ImageFont.load("arial.pil")
+
+draw.text((10, 10), "hello", font=font)
+
+# use a truetype font
+font = ImageFont.truetype("arial.ttf", 15)
+
+draw.text((10, 25), "world", font=font)
+"""
 # ARIAL_FONT = ImageFont.truetype("arial")
 ARIAL_FONT = ImageFont.load("arial.pil")
 
@@ -281,7 +295,7 @@ def display_scroll_text(msg, speed=0.1):
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=speed)
+    show_message(device, msg, y_offset=-1, fill=clr, font=ARIAL_FONT, scroll_delay=speed)
 
 
 
