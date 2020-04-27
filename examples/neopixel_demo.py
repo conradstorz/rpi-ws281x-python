@@ -6,6 +6,8 @@
 # Portions of this script were adapted from:
 #  https://github.com/pimoroni/unicorn-hat/blob/master/examples/demo.py
 
+from BTF32x8_matrix_device import MAP_BTF32x8, BTF_XSIZE, BTF_YSIZE
+
 import math
 import time
 import colorsys
@@ -38,9 +40,6 @@ from random_colors import color_dict, COLOR_KEYS
 from random import choice, shuffle
 
 from tqdm import tqdm
-
-from BTF32x8_matrix_device import MAP_BTF32x8, BTF_XSIZE, BTF_YSIZE
-
 
 
 # create matrix device
