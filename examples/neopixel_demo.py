@@ -70,27 +70,22 @@ def glitter(_x, _y, _step, _depth=0):
 
 # twisty swirly goodness
 def swirl(x, y, step):
-
+    """Returns RGB color tuple
+    """
     x -= device.width / 2
     y -= device.height / 2
-
     dist = math.sqrt(pow(x, 2) + pow(y, 2)) / 2.0
     angle = (step / 10.0) + (dist * 1.5)
-    sa = math.sin(angle)
-    ca = math.cos(angle)
-
-    xs = x * ca - y * sa
-    ys = x * sa + y * ca
-
-    r = abs(xs + ys)
-    r = r * 64.0
-    r -= 20
-
-    return (r, r + (sa * 130), r + (ca * 130))
+    xs = x * math.cos(angle) - y * math.sin(angle)
+    ys = x * math.sin(angle) + y * math.cos(angle)
+    r = (abs(xs + ys) * 64.0) - 20
+    return (r, r + (math.sin(angle) * 130), r + (math.cos(angle) * 130))
 
 
 # roto-zooming checker board
 def checkerboard(x, y, step):
+    """Returns RGB color tuple
+    """
     x -= device.width / 2
     y -= device.height / 2
     angle = step / 10.0
@@ -109,6 +104,8 @@ def checkerboard(x, y, step):
 
 # weeee waaaah
 def blues_and_twos(x, y, step):
+    """Returns RGB color tuple
+    """    
     x -= device.width / 2
     y -= device.height / 2
     scale = math.sin(step / 6.0) / 1.5
@@ -123,6 +120,8 @@ def blues_and_twos(x, y, step):
 
 # rainbow search spotlights
 def rainbow_search(x, y, step):
+    """Returns RGB color tuple
+    """    
     xs = math.sin((step) / 100.0) * 20.0
     ys = math.cos((step) / 100.0) * 20.0
     scale = ((math.sin(step / 60.0) + 1.0) / 5.0) + 0.2
@@ -134,6 +133,8 @@ def rainbow_search(x, y, step):
 
 # zoom tunnel
 def tunnel(x, y, step):
+    """Returns RGB color tuple
+    """    
     speed = step / 100.0
     x -= device.width / 2
     y -= device.height / 2
