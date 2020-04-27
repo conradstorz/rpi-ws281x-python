@@ -7,6 +7,9 @@
 #  https://github.com/pimoroni/unicorn-hat/blob/master/examples/demo.py
 
 from BTF32x8_matrix_device import MAP_BTF32x8, BTF_XSIZE, BTF_YSIZE
+from random_colors import color_dict, COLOR_KEYS
+from random import choice, shuffle
+from tqdm import tqdm
 
 import math
 import time
@@ -35,11 +38,6 @@ draw.text((10, 25), "world", font=font)
 """
 # ARIAL_FONT = ImageFont.truetype("arial")
 ARIAL_FONT = ImageFont.load("arial.pil")
-
-from random_colors import color_dict, COLOR_KEYS
-from random import choice, shuffle
-
-from tqdm import tqdm
 
 
 # create matrix device
