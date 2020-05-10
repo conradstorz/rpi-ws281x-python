@@ -37,7 +37,7 @@ font = ImageFont.truetype("arial.ttf", 15)
 draw.text((10, 25), "world", font=font)
 """
 # ARIAL_FONT = ImageFont.truetype("arial")
-ARIAL_FONT = ImageFont.load("arial.pil")
+# ARIAL_FONT = ImageFont.load("arial.pil")
 
 
 # create matrix device
@@ -293,7 +293,7 @@ def display_scroll_text(msg, speed=0.1):
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=ARIAL_FONT, scroll_delay=speed)
+    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=speed)
 
 
 
