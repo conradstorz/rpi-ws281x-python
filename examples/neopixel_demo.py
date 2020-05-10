@@ -6,6 +6,11 @@
 # Portions of this script were adapted from:
 #  https://github.com/pimoroni/unicorn-hat/blob/master/examples/demo.py
 
+from BTF32x8_matrix_device import MAP_BTF32x8, BTF_XSIZE, BTF_YSIZE
+from random_colors import color_dict, COLOR_KEYS
+from random import choice, shuffle
+from tqdm import tqdm
+
 import math
 import time
 import colorsys
@@ -16,16 +21,24 @@ from luma.core.legacy import text, show_message
 from luma.core.legacy.font import TINY_FONT, SINCLAIR_FONT
 
 from PIL import ImageFont
+"""https://pillow.readthedocs.io/en/stable/reference/ImageFont.html
+from PIL import ImageFont, ImageDraw
 
-# ARIAL_FONT = ImageFont.truetype("arial")
+draw = ImageDraw.Draw(image)
 
-from random_colors import color_dict, COLOR_KEYS
-from random import choice, shuffle
+# use a bitmap font
+font = ImageFont.load("arial.pil")
 
-from tqdm import tqdm
+draw.text((10, 10), "hello", font=font)
 
 from BTF64x8_matrix_device import MAP_BTF, BTF_XSIZE, BTF_YSIZE
+# use a truetype font
+font = ImageFont.truetype("arial.ttf", 15)
 
+draw.text((10, 25), "world", font=font)
+"""
+# ARIAL_FONT = ImageFont.truetype("arial")
+ARIAL_FONT = ImageFont.load("arial.pil")
 
 
 # create matrix device
@@ -58,27 +71,22 @@ def glitter(_x, _y, _step, _depth=0):
 
 # twisty swirly goodness
 def swirl(x, y, step):
-
+    """Returns RGB color tuple
+    """
     x -= device.width / 2
     y -= device.height / 2
-
     dist = math.sqrt(pow(x, 2) + pow(y, 2)) / 2.0
     angle = (step / 10.0) + (dist * 1.5)
-    sa = math.sin(angle)
-    ca = math.cos(angle)
-
-    xs = x * ca - y * sa
-    ys = x * sa + y * ca
-
-    r = abs(xs + ys)
-    r = r * 64.0
-    r -= 20
-
-    return (r, r + (sa * 130), r + (ca * 130))
+    xs = x * math.cos(angle) - y * math.sin(angle)
+    ys = x * math.sin(angle) + y * math.cos(angle)
+    r = (abs(xs + ys) * 64.0) - 20
+    return (r, r + (math.sin(angle) * 130), r + (math.cos(angle) * 130))
 
 
 # roto-zooming checker board
 def checkerboard(x, y, step):
+    """Returns RGB color tuple
+    """
     x -= device.width / 2
     y -= device.height / 2
     angle = step / 10.0
@@ -97,6 +105,8 @@ def checkerboard(x, y, step):
 
 # weeee waaaah
 def blues_and_twos(x, y, step):
+    """Returns RGB color tuple
+    """    
     x -= device.width / 2
     y -= device.height / 2
     scale = math.sin(step / 6.0) / 1.5
@@ -111,6 +121,8 @@ def blues_and_twos(x, y, step):
 
 # rainbow search spotlights
 def rainbow_search(x, y, step):
+    """Returns RGB color tuple
+    """    
     xs = math.sin((step) / 100.0) * 20.0
     ys = math.cos((step) / 100.0) * 20.0
     scale = ((math.sin(step / 60.0) + 1.0) / 5.0) + 0.2
@@ -122,6 +134,8 @@ def rainbow_search(x, y, step):
 
 # zoom tunnel
 def tunnel(x, y, step):
+    """Returns RGB color tuple
+    """    
     speed = step / 100.0
     x -= device.width / 2
     y -= device.height / 2
@@ -280,7 +294,7 @@ def display_scroll_text(msg, speed=0.1):
     # px8font = make_font("pixelmix.ttf", 8)
     rndcolor = choice(COLOR_KEYS)
     clr = color_dict[rndcolor]["hex"]
-    show_message(device, msg, y_offset=-1, fill=clr, font=SINCLAIR_FONT, scroll_delay=speed)
+    show_message(device, msg, y_offset=-1, fill=clr, font=ARIAL_FONT, scroll_delay=speed)
 
 
 
