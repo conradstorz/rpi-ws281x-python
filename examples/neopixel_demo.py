@@ -304,9 +304,14 @@ def main():
     print('Draw text "R" "G" and "B"')
     with canvas(device) as draw:
         text(draw, (0, -1), txt="R", fill="red", font=SINCLAIR_FONT)
-        text(draw, (8, -1), txt="G", fill="green", font=TINY_FONT)
+        text(draw, (8, -1), txt="G", fill="green", font=SINCLAIR_FONT)
         text(draw, (16, -1), txt="B", fill="blue", font=SINCLAIR_FONT)
-
+        text(draw, (24, -1), txt="R", fill="red", font=SINCLAIR_FONT)
+        text(draw, (32, -1), txt="G", fill="green", font=SINCLAIR_FONT)
+        text(draw, (40, -1), txt="B", fill="blue", font=SINCLAIR_FONT)
+        text(draw, (48, -1), txt="R", fill="red", font=SINCLAIR_FONT)
+        text(draw, (56, -1), txt="G", fill="green", font=SINCLAIR_FONT)
+        text(draw, (64, -1), txt="B", fill="blue", font=SINCLAIR_FONT)        
     time.sleep(3)
 
     # with canvas(device) as draw:
