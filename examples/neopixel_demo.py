@@ -6,7 +6,7 @@
 # Portions of this script were adapted from:
 #  https://github.com/pimoroni/unicorn-hat/blob/master/examples/demo.py
 
-from BTF32x8_matrix_device import MAP_BTF32x8, BTF_XSIZE, BTF_YSIZE
+from BTF64x8_matrix_device import MAP_BTF, BTF_XSIZE, BTF_YSIZE
 from random_colors import color_dict, COLOR_KEYS
 from random import choice, shuffle
 from tqdm import tqdm
@@ -31,7 +31,6 @@ font = ImageFont.load("arial.pil")
 
 draw.text((10, 10), "hello", font=font)
 
-from BTF64x8_matrix_device import MAP_BTF, BTF_XSIZE, BTF_YSIZE
 # use a truetype font
 font = ImageFont.truetype("arial.ttf", 15)
 
