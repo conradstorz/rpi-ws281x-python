@@ -24,12 +24,12 @@ from random import choice, shuffle
 
 from tqdm import tqdm
 
-from BTF32x8_matrix_device import MAP_BTF32x8, BTF_XSIZE, BTF_YSIZE
+from BTF64x8_matrix_device import MAP_BTF, BTF_XSIZE, BTF_YSIZE
 
 
 
 # create matrix device
-device = neopixel(width=BTF_XSIZE, height=BTF_YSIZE, mapping=MAP_BTF32x8, rotate=0)
+device = neopixel(width=BTF_XSIZE, height=BTF_YSIZE, mapping=MAP_BTF, rotate=0)
 
 LOCAL_COLOR_KEYS = COLOR_KEYS.copy()
 shuffle(LOCAL_COLOR_KEYS)

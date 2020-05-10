@@ -2,7 +2,7 @@
 """
 
 # matrix size
-BTF_XSIZE = 32
+BTF_XSIZE = 64
 BTF_YSIZE = 8
 
 # build a pixel mapping for BTF matrix device
